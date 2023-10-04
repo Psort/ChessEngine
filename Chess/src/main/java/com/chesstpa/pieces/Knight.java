@@ -6,8 +6,9 @@ import java.util.List;
 
 public class Knight extends Piece{
 
-    public Knight(PieceColor color, Coordinates coordinates) {
-        super(color, coordinates);
+
+    public Knight(PieceColor color, Coordinates coordinates, List<Piece> pieces) {
+        super(color, coordinates, pieces);
     }
 
     @Override

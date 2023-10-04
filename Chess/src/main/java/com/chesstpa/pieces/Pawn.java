@@ -7,8 +7,9 @@ import java.util.List;
 
 public class Pawn extends Piece{
 
-    public Pawn(PieceColor color, Coordinates coordinates) {
-        super(color, coordinates);
+
+    public Pawn(PieceColor color, Coordinates coordinates, List<Piece> pieces) {
+        super(color, coordinates, pieces);
     }
 
     @Override

@@ -5,8 +5,8 @@ import com.chesstpa.board.Board;
 import java.util.List;
 
 public class Rook extends Piece {
-    public Rook(PieceColor color, Coordinates coordinates) {
-        super(color, coordinates);
+    public Rook(PieceColor color, Coordinates coordinates, List<Piece> pieces) {
+        super(color, coordinates, pieces);
     }
 
     @Override

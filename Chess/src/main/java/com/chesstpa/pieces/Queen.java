@@ -6,8 +6,9 @@ import java.util.List;
 
 public class Queen extends Piece{
 
-    public Queen(PieceColor color, Coordinates coordinates) {
-        super(color, coordinates);
+
+    public Queen(PieceColor color, Coordinates coordinates, List<Piece> pieces) {
+        super(color, coordinates, pieces);
     }
 
     @Override

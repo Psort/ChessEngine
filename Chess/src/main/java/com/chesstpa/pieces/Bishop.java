@@ -5,8 +5,10 @@ import com.chesstpa.board.Board;
 import java.util.List;
 
 public class Bishop extends Piece{
-    public Bishop(PieceColor color, Coordinates coordinates) {
-        super(color, coordinates);
+
+
+    public Bishop(PieceColor color, Coordinates coordinates, List<Piece> pieces) {
+        super(color, coordinates, pieces);
     }
 
     @Override
