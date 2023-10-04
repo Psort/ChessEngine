@@ -1,13 +1,19 @@
 package com.chesstpa.pieces;
 
+import com.chesstpa.board.Board;
+
+import java.util.List;
+
 public class King extends Piece {
 
-    public King(String color, Coordinates coordinates) {
+    public King(PieceColor color, Coordinates coordinates) {
         super(color, coordinates);
     }
 
     @Override
-    public void move() {
-
+    public List<Coordinates> getPossibleMoves(Board board) {
+        return null;
     }
+
+
 }

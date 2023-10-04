@@ -1,14 +1,20 @@
 package com.chesstpa.pieces;
 
+import com.chesstpa.board.Board;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pawn extends Piece{
 
-    public Pawn(String color, Coordinates coordinates) {
+    public Pawn(PieceColor color, Coordinates coordinates) {
         super(color, coordinates);
     }
 
     @Override
-    public void move() {
-
+    public List<Coordinates> getPossibleMoves(Board board) {
+        return new ArrayList<>(List.of(new Coordinates(4,2)));
     }
+
 
 }
