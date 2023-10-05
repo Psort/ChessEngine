@@ -17,5 +17,10 @@ public class Pawn extends Piece {
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         return null;
     }
-
+    public boolean doesHasFirstMove(){
+        return hasFirstMove;
+    }
+    public void setHasFirstMove(){
+        hasFirstMove = false;
+    }
 }
