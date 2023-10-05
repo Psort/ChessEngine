@@ -27,7 +27,6 @@ public class BasicMoves {
         }
         else return null;
     }
-
     public Spot getPossibleDoubleMove(Board board, Spot spot){
         Spot[][] spots = board.getSpots();
         Spot spotToMove;
@@ -35,10 +34,10 @@ public class BasicMoves {
         int nextSpotForBlackPiece = spot.getX() + 2;
         int nextSpotForWhitePiece = spot.getX() - 2;
 
-        if (pawn.getColor() == PieceColor.Black && pawn.doesHasFirstMove()) {
+        if (pawn.getColor() == PieceColor.Black && pawn.doesHasFirstMove() && isFirstSpotEmpty(board, spot, pawn)) {
             spotToMove = spots[nextSpotForBlackPiece][spot.getY()];
             return spotToMove;
-        } else if (pawn.getColor() == PieceColor.White && pawn.doesHasFirstMove()) {
+        } else if (pawn.getColor() == PieceColor.White && pawn.doesHasFirstMove() && isFirstSpotEmpty(board, spot, pawn)) {
             spotToMove = spots[nextSpotForWhitePiece][spot.getY()];
             return spotToMove;
         }
@@ -46,28 +45,46 @@ public class BasicMoves {
     }
     public List<Spot> getPossibleCapture(Board board, Spot spot) {
         Spot[][] spots = board.getSpots();
-        Spot rightCaptureSpot;
-        Spot leftCaptureSpot;
         Piece piece = spot.getPiece();
-        int xForwardPositionForBlackPiece = spot.getX() + 1;
-        int xForwardPositionForWhitePiece = spot.getX() - 1;
+        int xForwardPosition = piece.getColor() == PieceColor.Black ? spot.getX() + 1 : spot.getX() - 1;
         int yRightPosition = spot.getY() + 1;
         int yLeftPosition = spot.getY() - 1;
 
-        if (piece.getColor() == PieceColor.Black) {
-            rightCaptureSpot = spots[xForwardPositionForBlackPiece][yRightPosition];
-            leftCaptureSpot = spots[xForwardPositionForBlackPiece][yLeftPosition];
-        } else {
-            rightCaptureSpot = spots[xForwardPositionForWhitePiece][yRightPosition];
-            leftCaptureSpot = spots[xForwardPositionForWhitePiece][yLeftPosition];
+        List<Spot> possibleCaptures = new ArrayList<>();
+
+        if (isRightCaptureValid(yRightPosition)) {
+            Spot rightCaptureSpot = spots[xForwardPosition][yRightPosition];
+            if (isCaptureValid(rightCaptureSpot, piece)) {
+                possibleCaptures.add(rightCaptureSpot);
+            }
         }
 
-        List<Spot> possibleCaptures = new ArrayList<>(List.of(leftCaptureSpot, rightCaptureSpot));
+        if (isLeftCaptureValid(yLeftPosition)) {
+            Spot leftCaptureSpot = spots[xForwardPosition][yLeftPosition];
+            if (isCaptureValid(leftCaptureSpot, piece)) {
+                possibleCaptures.add(leftCaptureSpot);
+            }
+        }
 
-        return possibleCaptures.stream()
-                .filter(s -> s.getPiece() != null)
-                .filter(s -> s.getPiece().getColor() != piece.getColor())
-                .toList();
+        return possibleCaptures;
     }
 
+    private boolean isRightCaptureValid(int y) {
+        return y <= 6;
+    }
+
+    private boolean isLeftCaptureValid(int y) {
+        return y >= 1;
+    }
+
+    private boolean isCaptureValid(Spot spot, Piece piece) {
+        return spot != null && spot.getPiece() != null && spot.getPiece().getColor() != piece.getColor();
+    }
+    private boolean isFirstSpotEmpty(Board board, Spot spot, Piece piece){
+        Spot firstSpot;
+        if(piece.getColor().equals(PieceColor.Black)) {
+            firstSpot = board.getSpot(spot.getX() + 1, spot.getY());
+        } else firstSpot = board.getSpot(spot.getX() - 1, spot.getY());
+        return firstSpot.getPiece() == null;
+    }
 }
