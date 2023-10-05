@@ -3,6 +3,7 @@ package com.chesstpa.moves;
 import com.chesstpa.board.Board;
 import com.chesstpa.board.Spot;
 import com.chesstpa.pieces.Piece;
+import com.chesstpa.pieces.PieceColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,19 +12,19 @@ public class RookMoves {
 
     public List<Spot> getVerticalPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
-        int nextPosition = spot.getX() +1;
-        int previousPosition = spot.getX() -1;
+        int x = spot.getX();
+        PieceColor pieceColor = spot.getPiece().getColor();
 
-        // Check for moves to the down
-        for (int i = nextPosition; i < board.getSpots().length; i++) {
-            if (checkAndUpdateMove(board, possibleMoves, i, spot.getY())) {
+        // Check downward moves
+        for (int i = x + 1; i < board.getSpots().length; i++) {
+            if (checkAndUpdateMove(board, possibleMoves,pieceColor, i, spot.getY())) {
                 break;
             }
         }
 
-        //Check for moves to the up
-        for (int i = previousPosition; i >= 0; i--) {
-            if (checkAndUpdateMove(board, possibleMoves, i, spot.getY())) {
+        // Check upward moves
+        for (int i = x - 1; i >= 0; i--) {
+            if (checkAndUpdateMove(board, possibleMoves,pieceColor, i, spot.getY())) {
                 break;
             }
         }
@@ -33,19 +34,19 @@ public class RookMoves {
 
     public List<Spot> getHorizontalPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
-        int nextPosition = spot.getY() +1;
-        int previousPosition = spot.getY() -1;
+        int y = spot.getY();
+        PieceColor pieceColor = spot.getPiece().getColor();
 
-        // Sprawdź ruchy w right
-        for (int i = nextPosition; i < board.getSpots()[spot.getX()].length; i++) {
-            if (checkAndUpdateMove(board, possibleMoves, spot.getX(), i)) {
+        // Check right moves
+        for (int i = y + 1; i < board.getSpots()[spot.getX()].length; i++) {
+            if (checkAndUpdateMove(board, possibleMoves,pieceColor, spot.getX(), i)) {
                 break;
             }
         }
 
-        // Check the moves to the left
-        for (int i = previousPosition; i >= 0; i--) {
-            if (checkAndUpdateMove(board, possibleMoves, spot.getX(), i)) {
+        // Check left moves
+        for (int i = y - 1; i >= 0; i--) {
+            if (checkAndUpdateMove(board, possibleMoves,pieceColor, spot.getX(), i)) {
                 break;
             }
         }
@@ -53,18 +54,19 @@ public class RookMoves {
         return possibleMoves;
     }
 
-    private boolean checkAndUpdateMove(Board board, List<Spot> possibleMoves, int x, int y) {
+    private boolean checkAndUpdateMove(Board board, List<Spot> possibleMoves,PieceColor pieceColor, int x, int y) {
         Spot currentSpot = board.getSpots()[x][y];
         Piece pieceChecked = currentSpot.getPiece();
 
         if (pieceChecked == null) {
             possibleMoves.add(currentSpot);
-            return false;  // Possible move, but continue checking further
-        } else if (pieceChecked.getColor() != currentSpot.getPiece().getColor()) {
+            return false;  // Move is possible, continue checking further
+        } else if(pieceChecked.getColor() != pieceColor){
             possibleMoves.add(currentSpot);
+            return true;
         }
-
-        return true;
+        else {
+            return true;  // Stop checking, there's a piece in the way
+        }
     }
-
 }
