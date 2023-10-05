@@ -11,6 +11,8 @@ import java.util.stream.Stream;
 
 public class Rook extends Piece  {
     private final RookMoves rookMoves = new RookMoves();
+
+    private boolean hasMoved = false;
     public Rook(PieceColor color) {
         super(color);
     }
