@@ -45,12 +45,13 @@ public class Board {
             for (int j = 0; j < SIZE; j++) {
                 this.spots[i][j] = new Spot(i, j, null);
             }
-
         }
-        System.out.println(spots.length);
     }
 
     public Spot[][] getSpots() {
         return this.spots;
+    }
+    public Spot getSpot(int x, int y){
+        return spots[x][y];
     }
 }
