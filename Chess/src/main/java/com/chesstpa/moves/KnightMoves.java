@@ -9,7 +9,7 @@ import java.util.List;
 
 public class KnightMoves {
 
-    public List<Spot> getKnightPossibleMoves(Board board, Spot spot) {
+    public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
 
         int x = spot.getX();
@@ -32,7 +32,7 @@ public class KnightMoves {
                 Piece piece = destinationSpot.getPiece();
 
                 // Check if the spot is empty or occupied by an opponent's piece
-                if (piece == null || piece.getColor() != spot.getPiece().getColor()) {
+                if (destinationSpot.isEmpty() || piece.getColor() != spot.getPiece().getColor()) {
                     possibleMoves.add(destinationSpot);
                 }
             }

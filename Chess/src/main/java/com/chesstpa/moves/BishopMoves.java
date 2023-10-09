@@ -10,7 +10,7 @@ import java.util.List;
 
 public class BishopMoves {
 
-    public List<Spot> getDiagonalPossibleMoves(Board board, Spot spot) {
+    public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
         PieceColor pieceColor = spot.getPiece().getColor();
         int x = spot.getX();
@@ -30,7 +30,7 @@ public class BishopMoves {
             }
         }
 
-        // Check moves to the down-left
+        // Check moves to the down-left8
         for (int i = 1; x + i < board.getSpots().length && y - i >= 0; i++) {
             if (checkAndUpdateMove(board, possibleMoves,pieceColor, x + i, y - i)) {
                 break;
@@ -51,7 +51,7 @@ public class BishopMoves {
         Spot currentSpot = board.getSpots()[x][y];
         Piece pieceChecked = currentSpot.getPiece();
 
-        if (pieceChecked == null) {
+        if (currentSpot.isEmpty()) {
             possibleMoves.add(currentSpot);
             return false;  // Move is possible, continue checking further
         } else if(pieceChecked.getColor() != pieceColor){

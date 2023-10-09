@@ -15,7 +15,7 @@ public class Knight extends Piece{
 
     @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
-        return knightMoves.getKnightPossibleMoves(board,spot);
+        return knightMoves.getPossibleMoves(board,spot);
     }
 
 }

@@ -21,7 +21,7 @@ public class Queen extends Piece{
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> verticalMoves = rookMoves.getVerticalPossibleMoves(board,spot);
         List<Spot> horizontalMoves = rookMoves.getHorizontalPossibleMoves(board,spot);
-        List<Spot> diagonalMoves = bishopMoves.getDiagonalPossibleMoves(board,spot);
+        List<Spot> diagonalMoves = bishopMoves.getPossibleMoves(board,spot);
         return Stream.concat(Stream.concat(verticalMoves.stream(), horizontalMoves.stream()), diagonalMoves.stream())
                 .collect(Collectors.toList());
     }

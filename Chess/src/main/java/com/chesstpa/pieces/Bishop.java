@@ -14,7 +14,7 @@ public class Bishop extends Piece{
 
     @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
-        return bishopMoves.getDiagonalPossibleMoves(board,spot);
+        return bishopMoves.getPossibleMoves(board,spot);
     }
 
 }

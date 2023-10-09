@@ -20,14 +20,14 @@ public class Board {
         this.spots[0][6] = new Spot(0, 6, new Knight(PieceColor.Black));
         this.spots[0][7] = new Spot(0, 7, new Rook(PieceColor.Black));
 
-        // initialize white pieces
+//         initialize white pieces
         this.spots[7][0] = new Spot(7, 0, new Rook(PieceColor.White));
-        this.spots[7][1] = new Spot(7, 1, new Knight(PieceColor.White));
-        this.spots[7][2] = new Spot(7, 2, new Bishop(PieceColor.White));
-        this.spots[7][3] = new Spot(7, 3, new Queen(PieceColor.White));
+        this.spots[7][1] = new Spot(7, 1, new Rook(PieceColor.White) );
+        this.spots[7][2] = new Spot(7, 2, new Rook(PieceColor.White) );
+        this.spots[7][3] = new Spot(7, 3,new Rook(PieceColor.White));
         this.spots[7][4] = new Spot(7, 4, new King(PieceColor.White));
-        this.spots[7][5] = new Spot(7, 5, new Bishop(PieceColor.White));
-        this.spots[7][6] = new Spot(7, 6, new Knight(PieceColor.White));
+        this.spots[7][5] = new Spot(7, 5, new Rook(PieceColor.White));
+        this.spots[7][6] = new Spot(7, 6, new Rook(PieceColor.White));
         this.spots[7][7] = new Spot(7, 7, new Rook(PieceColor.White));
 
         // initialize black pawns
@@ -38,6 +38,7 @@ public class Board {
         // initialize white pawns
         for (int i = 0; i < Board.SIZE; i++) {
             this.spots[6][i] = new Spot(6, i, new Pawn(PieceColor.White));
+//            this.spots[6][i] = new Spot(6, i, null);
         }
 
         // initialize spots without any piece
@@ -45,7 +46,9 @@ public class Board {
             for (int j = 0; j < SIZE; j++) {
                 this.spots[i][j] = new Spot(i, j, null);
             }
+
         }
+        System.out.println(spots.length);
     }
 
     public Spot[][] getSpots() {

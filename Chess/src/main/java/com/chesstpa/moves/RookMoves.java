@@ -58,7 +58,7 @@ public class RookMoves {
         Spot currentSpot = board.getSpots()[x][y];
         Piece pieceChecked = currentSpot.getPiece();
 
-        if (pieceChecked == null) {
+        if (currentSpot.isEmpty()) {
             possibleMoves.add(currentSpot);
             return false;  // Move is possible, continue checking further
         } else if(pieceChecked.getColor() != pieceColor){
