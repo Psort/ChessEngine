@@ -98,4 +98,11 @@ public class Board {
             return blackKingSpot;
         }
     }
+    public boolean isCheck(PieceColor color){
+        return getKingSpot(color).isBeaten(this, color);
+    }
+    public void swapSpots(Spot currentSpot, Spot nextSpot){
+        this.getSpots()[nextSpot.getX()][nextSpot.getY()].setPiece(currentSpot.getPiece());
+        this.getSpots()[currentSpot.getX()][currentSpot.getY()].setPiece(null);
+    }
 }

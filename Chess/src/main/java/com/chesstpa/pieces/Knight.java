@@ -15,16 +15,15 @@ public class Knight extends Piece{
 
     @Override
     public void move(Board board,Spot currentSpot,Spot nextSpot) {
-        board.getSpots()[nextSpot.getX()][nextSpot.getY()].setPiece(currentSpot.getPiece());
-        board.getSpots()[currentSpot.getX()][currentSpot.getY()].setPiece(null);
+        board.swapSpots(currentSpot, nextSpot);
     }
 
     @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = knightMoves.getPossibleMoves(board, spot);
-        PieceColor color = spot.getPiece().getColor();
+        PieceColor color = this.getColor();
 
-        if (board.getKingSpot(color).isBeaten(board, color)) {
+        if (board.isCheck(color)) {
             possibleMoves.removeIf(move -> move.safeKing(board, color,this));
         }
 

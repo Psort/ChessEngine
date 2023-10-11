@@ -23,8 +23,7 @@ public class King extends Piece {
         if(!hasMoved){
             hasMoved = true;
         }
-        board.getSpots()[nextSpot.getX()][nextSpot.getY()].setPiece(currentSpot.getPiece());
-        board.getSpots()[currentSpot.getX()][currentSpot.getY()].setPiece(null);
+        board.swapSpots(currentSpot, nextSpot);
         board.setKingSpot(nextSpot);
     }
 

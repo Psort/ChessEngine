@@ -26,16 +26,15 @@ public class Pawn extends Piece {
             hasMoved = true;
             isFirstMove = true;
         }
-        board.getSpots()[nextSpot.getX()][nextSpot.getY()].setPiece(currentSpot.getPiece());
-        board.getSpots()[currentSpot.getX()][currentSpot.getY()].setPiece(null);
+        board.swapSpots(currentSpot, nextSpot);
     }
 
     @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = pawnMoves.getPossibleMoves(board,spot);
-        PieceColor color = spot.getPiece().getColor();
+        PieceColor color = this.getColor();
 
-        if (board.getKingSpot(color).isBeaten(board, color)) {
+        if (board.isCheck(color)) {
             possibleMoves.removeIf(move -> move.safeKing(board, color,this));
         }
         return possibleMoves;
