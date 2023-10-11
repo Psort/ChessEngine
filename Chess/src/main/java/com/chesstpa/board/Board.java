@@ -5,7 +5,6 @@ import com.chesstpa.pieces.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Board {
@@ -31,12 +30,12 @@ public class Board {
 
         //initialize white pieces
         this.spots[7][0] = new Spot(7, 0, new Rook(PieceColor.White));
-        this.spots[7][1] = new Spot(7, 1, new Rook(PieceColor.White) );
-        this.spots[7][2] = new Spot(7, 2, new Rook(PieceColor.White) );
-        this.spots[7][3] = new Spot(7, 3,new Rook(PieceColor.White));
+        this.spots[7][1] = new Spot(7, 1, new Knight(PieceColor.White) );
+        this.spots[7][2] = new Spot(7, 2, new Bishop(PieceColor.White) );
+        this.spots[7][3] = new Spot(7, 3,new Queen(PieceColor.White));
         this.spots[7][4] = whiteKingSpot;
-        this.spots[7][5] = new Spot(7, 5, new Rook(PieceColor.White));
-        this.spots[7][6] = new Spot(7, 6, new Rook(PieceColor.White));
+        this.spots[7][5] = new Spot(7, 5, new Bishop(PieceColor.White));
+        this.spots[7][6] = new Spot(7, 6, new Knight(PieceColor.White));
         this.spots[7][7] = new Spot(7, 7, new Rook(PieceColor.White));
 
         // initialize black pawns
@@ -101,12 +100,12 @@ public class Board {
             return blackKingSpot;
         }
     }
-    public boolean isCheck(PieceColor color){
+    public boolean kingIsCheck(PieceColor color){
         return getKingSpot(color).isBeaten(this, color);
     }
     public boolean isCheckMate(PieceColor color){
         List<Spot> possibleMovesForAllPiece = getPossibleMovesForAllPiece(color);
-        return  isCheck(color) && possibleMovesForAllPiece.isEmpty();
+        return  kingIsCheck(color) && possibleMovesForAllPiece.isEmpty();
     }
     public boolean isPat(PieceColor color){
         List<Spot> possibleMovesForAllPiece = getPossibleMovesForAllPiece(color);
@@ -115,7 +114,7 @@ public class Board {
                 .filter(spot -> spot.getPiece() != null )
                 .count();
 
-        return (!isCheck(color) && possibleMovesForAllPiece.isEmpty()) || numberOfPiece == 2;
+        return (!kingIsCheck(color) && possibleMovesForAllPiece.isEmpty()) || numberOfPiece == 2;
     }
 
     public void swapSpots(Spot currentSpot, Spot nextSpot){
