@@ -22,7 +22,7 @@ public class Bishop extends Piece{
         List<Spot> possibleMoves = bishopMoves.getPossibleMoves(board,spot);
         PieceColor color = this.getColor();
 
-        if (board.isCheck(color)) {
+        if (board.kingIsCheck(color)) {
             possibleMoves.removeIf(move -> move.safeKing(board, color,this));
         }
         return possibleMoves;

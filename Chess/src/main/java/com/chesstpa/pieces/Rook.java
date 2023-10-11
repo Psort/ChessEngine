@@ -4,7 +4,6 @@ import com.chesstpa.board.Board;
 import com.chesstpa.board.Spot;
 import com.chesstpa.moves.RookMoves;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -32,7 +31,7 @@ public class Rook extends Piece  {
         List<Spot> possibleMoves = Stream.concat(verticalMoves.stream(), horizontalMoves.stream()).collect(Collectors.toList());
         PieceColor color = this.getColor();
 
-        if (board.isCheck(color)) {
+        if (board.kingIsCheck(color)) {
             possibleMoves.removeIf(move -> move.safeKing(board, color,this));
         }
         return possibleMoves;

@@ -31,7 +31,7 @@ public class Queen extends Piece {
                 .collect(Collectors.toList());
         PieceColor color = this.getColor();
 
-        if (board.isCheck(color)){
+        if (board.kingIsCheck(color)){
             possibleMoves.removeIf(move -> move.safeKing(board, color,this));
         }
         return possibleMoves;

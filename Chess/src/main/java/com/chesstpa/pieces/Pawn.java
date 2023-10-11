@@ -2,10 +2,8 @@ package com.chesstpa.pieces;
 
 import com.chesstpa.board.Board;
 import com.chesstpa.board.Spot;
-import com.chesstpa.moves.KnightMoves;
 import com.chesstpa.moves.PawnMoves;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Pawn extends Piece {
@@ -34,7 +32,7 @@ public class Pawn extends Piece {
         List<Spot> possibleMoves = pawnMoves.getPossibleMoves(board,spot);
         PieceColor color = this.getColor();
 
-        if (board.isCheck(color)) {
+        if (board.kingIsCheck(color)) {
             possibleMoves.removeIf(move -> move.safeKing(board, color,this));
         }
         return possibleMoves;
