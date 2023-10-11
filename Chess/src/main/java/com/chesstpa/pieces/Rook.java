@@ -31,9 +31,9 @@ public class Rook extends Piece  {
         List<Spot> verticalMoves = rookMoves.getVerticalPossibleMoves(board,spot);
         List<Spot> horizontalMoves = rookMoves.getHorizontalPossibleMoves(board,spot);
         List<Spot> possibleMoves = Stream.concat(verticalMoves.stream(), horizontalMoves.stream()).collect(Collectors.toList());
-        PieceColor color = spot.getPiece().getColor();
+        PieceColor color = this.getColor();
 
-        if (board.getKingSpot(color).isBeaten(board, color)) {
+        if (board.isCheck(color)) {
             possibleMoves.removeIf(move -> move.safeKing(board, color,this));
         }
         return possibleMoves;

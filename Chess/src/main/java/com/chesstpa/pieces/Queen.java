@@ -30,9 +30,9 @@ public class Queen extends Piece {
         List<Spot> diagonalMoves = bishopMoves.getPossibleMoves(board,spot);
         List<Spot> possibleMoves = Stream.concat(Stream.concat(verticalMoves.stream(), horizontalMoves.stream()), diagonalMoves.stream())
                 .collect(Collectors.toList());
-        PieceColor color = spot.getPiece().getColor();
+        PieceColor color = this.getColor();
 
-        if (board.getKingSpot(color).isBeaten(board, color)) {
+        if (board.isCheck(color)){
             possibleMoves.removeIf(move -> move.safeKing(board, color,this));
         }
         return possibleMoves;
