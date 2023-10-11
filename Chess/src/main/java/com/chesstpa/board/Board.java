@@ -2,9 +2,15 @@ package com.chesstpa.board;
 
 import com.chesstpa.pieces.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board {
     public final static int SIZE = 8;
     private Spot[][] spots = new Spot[SIZE][SIZE];
+
+    private Spot whiteKingSpot = new Spot(7, 4, new King(PieceColor.White));
+    private Spot blackKingSpot = new Spot(0, 4, new King(PieceColor.Black));
     public Board() {
         this.initializeBoard();
     }
@@ -15,17 +21,17 @@ public class Board {
         this.spots[0][1] = new Spot(0, 1, new Knight(PieceColor.Black));
         this.spots[0][2] = new Spot(0, 2, new Bishop(PieceColor.Black));
         this.spots[0][3] = new Spot(0, 3, new Queen(PieceColor.Black));
-        this.spots[0][4] = new Spot(0, 4, new King(PieceColor.Black));
+        this.spots[0][4] = blackKingSpot;
         this.spots[0][5] = new Spot(0, 5, new Bishop(PieceColor.Black));
         this.spots[0][6] = new Spot(0, 6, new Knight(PieceColor.Black));
         this.spots[0][7] = new Spot(0, 7, new Rook(PieceColor.Black));
 
-//         initialize white pieces
+        //initialize white pieces
         this.spots[7][0] = new Spot(7, 0, new Rook(PieceColor.White));
         this.spots[7][1] = new Spot(7, 1, new Rook(PieceColor.White) );
         this.spots[7][2] = new Spot(7, 2, new Rook(PieceColor.White) );
         this.spots[7][3] = new Spot(7, 3,new Rook(PieceColor.White));
-        this.spots[7][4] = new Spot(7, 4, new King(PieceColor.White));
+        this.spots[7][4] = whiteKingSpot;
         this.spots[7][5] = new Spot(7, 5, new Rook(PieceColor.White));
         this.spots[7][6] = new Spot(7, 6, new Rook(PieceColor.White));
         this.spots[7][7] = new Spot(7, 7, new Rook(PieceColor.White));
@@ -48,7 +54,6 @@ public class Board {
             }
 
         }
-        System.out.println(spots.length);
     }
 
     public Spot[][] getSpots() {
@@ -56,5 +61,41 @@ public class Board {
     }
     public Spot getSpot(int x, int y){
         return spots[x][y];
+    }
+
+    public void printBoard(){
+        for(String a :new ArrayList<String>(List.of("    a  ","  b  ","  c  ","  d  ","  e  ","  f  ","  g  ","  h  "))){
+            System.out.print(a);
+        }
+        System.out.println();
+        int i = 1;
+        for (Spot[] spots1: spots){
+            System.out.print(i++ +" ");
+            for (Spot spot: spots1){
+                if (spot.getPiece() !=null){
+                    System.out.print(" "+spot.getX()+spot.getPiece().getClass().getSimpleName().charAt(0)+spot.getY()+" ");
+                }
+                else {
+                    System.out.print(" "+spot.getX()+":"+spot.getY()+" ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public void setKingSpot(Spot nextSpot) {
+        if(nextSpot.getPiece().getColor() == PieceColor.White){
+            whiteKingSpot = nextSpot;
+        }else {
+            blackKingSpot = nextSpot;
+        }
+    }
+
+    public Spot getKingSpot(PieceColor color) {
+        if (color == PieceColor.White) {
+            return whiteKingSpot;
+        } else {
+            return blackKingSpot;
+        }
     }
 }
