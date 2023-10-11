@@ -3,7 +3,10 @@ package com.chesstpa.board;
 import com.chesstpa.pieces.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Board {
     public final static int SIZE = 8;
@@ -101,8 +104,29 @@ public class Board {
     public boolean isCheck(PieceColor color){
         return getKingSpot(color).isBeaten(this, color);
     }
+    public boolean isCheckMate(PieceColor color){
+        List<Spot> possibleMovesForAllPiece = getPossibleMovesForAllPiece(color);
+        return  isCheck(color) && possibleMovesForAllPiece.isEmpty();
+    }
+    public boolean isPat(PieceColor color){
+        List<Spot> possibleMovesForAllPiece = getPossibleMovesForAllPiece(color);
+        long numberOfPiece = Arrays.stream(spots)
+                .flatMap(Arrays::stream)
+                .filter(spot -> spot.getPiece() != null )
+                .count();
+
+        return (!isCheck(color) && possibleMovesForAllPiece.isEmpty()) || numberOfPiece == 2;
+    }
+
     public void swapSpots(Spot currentSpot, Spot nextSpot){
         this.getSpots()[nextSpot.getX()][nextSpot.getY()].setPiece(currentSpot.getPiece());
         this.getSpots()[currentSpot.getX()][currentSpot.getY()].setPiece(null);
+    }
+    private List<Spot> getPossibleMovesForAllPiece(PieceColor color){
+        return Stream.of(spots)
+                .flatMap(Arrays::stream)
+                .filter(spot -> spot.getPiece() != null && spot.getPiece().getColor() == color)
+                .flatMap(spot -> spot.getPiece().getPossibleMoves(this, spot).stream())
+                .toList();
     }
 }
