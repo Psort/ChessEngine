@@ -22,8 +22,7 @@ public class Rook extends Piece  {
         if(!hasMoved){
             hasMoved = true;
         }
-        board.getSpots()[nextSpot.getX()][nextSpot.getY()].setPiece(currentSpot.getPiece());
-        board.getSpots()[currentSpot.getX()][currentSpot.getY()].setPiece(null);
+        board.swapSpots(currentSpot, nextSpot);
     }
 
     @Override

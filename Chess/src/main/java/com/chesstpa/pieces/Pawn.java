@@ -26,8 +26,7 @@ public class Pawn extends Piece {
             hasMoved = true;
             isFirstMove = true;
         }
-        board.getSpots()[nextSpot.getX()][nextSpot.getY()].setPiece(currentSpot.getPiece());
-        board.getSpots()[currentSpot.getX()][currentSpot.getY()].setPiece(null);
+        board.swapSpots(currentSpot, nextSpot);
     }
 
     @Override
