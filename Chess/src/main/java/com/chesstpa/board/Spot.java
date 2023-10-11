@@ -30,9 +30,6 @@ public class Spot {
         this.y = y;
     }
     public boolean isBeaten(Board board,PieceColor color) {
-        int x = this.getX();
-        int y = this.getY();
-
         // Check attack by queen, bishop, rook, king, knight and pawn
         return isBeatenByQueen(color, board) || isBeatenByBishop(color, board)
                 || isBeatenByRook(color, board) || isBeatenByKing(color, board)
@@ -156,7 +153,16 @@ public class Spot {
         return x >= 0 && x < Board.SIZE && y >= 0 && y < Board.SIZE;
     }
 
+
     public boolean isEmpty() {
         return piece ==null;
+    }
+
+    public boolean safeKing(Board board, PieceColor color,Piece piece) {
+        Spot kingSpot = board.getKingSpot(color);
+        this.piece = piece;
+        boolean itSafe = !kingSpot.isBeaten(board,color);
+        this.piece = null;
+        return !itSafe;
     }
 }
