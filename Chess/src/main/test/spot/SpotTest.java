@@ -2,10 +2,7 @@ package spot;
 
 import com.chesstpa.board.Board;
 import com.chesstpa.board.Spot;
-import com.chesstpa.pieces.King;
-import com.chesstpa.pieces.Knight;
-import com.chesstpa.pieces.PieceColor;
-import com.chesstpa.pieces.Rook;
+import com.chesstpa.pieces.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -103,6 +100,63 @@ public class SpotTest {
         board.getSpot(7,0).setPiece(new Rook(PieceColor.Black));
         assertTrue(board.getSpots()[7][7].isBeaten(board,PieceColor.White));
 
+    }
+    @Test
+    void isBeatenByBishop() {
+        Board board = getNullBoard();
+        board.getSpot(0, 0).setPiece(new Bishop(PieceColor.White));
+
+        board.getSpot(2, 2).setPiece(new Bishop(PieceColor.Black));
+        assertTrue(board.getSpot(0,0).isBeaten(board, PieceColor.White));
+
+        board.getSpot(2, 2).setPiece(null);
+        board.getSpot(4, 0).setPiece(new Bishop(PieceColor.Black));
+        assertFalse(board.getSpots()[0][0].isBeaten(board, PieceColor.White));
+
+        board.getSpot(0, 0).setPiece(null);
+
+        board.getSpot(7, 3).setPiece(new Bishop(PieceColor.White));
+        assertTrue(board.getSpots()[7][3].isBeaten(board, PieceColor.White));
+
+        board.getSpot(4, 0).setPiece(null);
+        board.getSpot(3, 7).setPiece(new Bishop(PieceColor.Black));
+        assertTrue(board.getSpots()[7][3].isBeaten(board, PieceColor.White));
+    }
+    @Test
+    void isBeatenByQueen() {
+        Board board = getNullBoard();
+        board.getSpot(0, 0).setPiece(new Queen(PieceColor.White));
+
+        board.getSpot(7, 7).setPiece(new Queen(PieceColor.Black));
+        assertTrue(board.getSpots()[0][0].isBeaten(board, PieceColor.White));
+
+        board.getSpot(0, 7).setPiece(null);
+        board.getSpot(7, 0).setPiece(new Queen(PieceColor.Black));
+        assertTrue(board.getSpots()[0][0].isBeaten(board, PieceColor.White));
+
+        board.getSpot(0, 0).setPiece(null);
+
+        board.getSpot(7, 7).setPiece(new Queen(PieceColor.White));
+        assertTrue(board.getSpots()[7][7].isBeaten(board, PieceColor.White));
+
+        board.getSpot(7, 0).setPiece(null);
+        board.getSpot(0, 7).setPiece(new Queen(PieceColor.Black));
+
+        assertTrue(board.getSpots()[7][7].isBeaten(board, PieceColor.White));
+    }
+    @Test
+    void isBeatenByPawn() {
+        Board board = getNullBoard();
+        board.getSpot(1, 1).setPiece(new Pawn(PieceColor.Black));
+
+        board.getSpot(2, 2).setPiece(new Pawn(PieceColor.White));
+        assertTrue(board.getSpots()[2][2].isBeaten(board, PieceColor.White));
+        assertTrue(board.getSpots()[1][1].isBeaten(board, PieceColor.Black));
+
+        board.getSpot(1, 1).setPiece(null);
+        board.getSpot(1, 3).setPiece(new Pawn(PieceColor.Black));
+        assertTrue(board.getSpots()[2][2].isBeaten(board, PieceColor.White));
+        assertTrue(board.getSpots()[1][3].isBeaten(board, PieceColor.Black));
     }
 
 

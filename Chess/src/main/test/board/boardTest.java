@@ -58,7 +58,7 @@ public class boardTest {
         Board board = getNullBoard();
         board.getSpot(3,4).setPiece(new King(PieceColor.White));
         board.getSpot(5,2).setPiece(new King(PieceColor.Black));
-        board.printBoard();
+
         assertTrue(board.isPat(PieceColor.White));
     }
     @Test
@@ -73,7 +73,7 @@ public class boardTest {
         Spot nextSpot = board.getSpot(7,7);
         kingSpot.getPiece().move(board, kingSpot,nextSpot);
 
-        board.printBoard();
+
         assertFalse(board.isPat(PieceColor.White));
     }
 
