@@ -98,4 +98,7 @@ public class Board {
             return blackKingSpot;
         }
     }
+    public boolean isCheck(PieceColor color){
+        return getKingSpot(color).isBeaten(this, color);
+    }
 }
