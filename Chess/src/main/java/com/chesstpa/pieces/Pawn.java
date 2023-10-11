@@ -18,21 +18,34 @@ public class Pawn extends Piece {
     }
 
     @Override
+    public void move(Board board,Spot currentSpot,Spot nextSpot) {
+        if(isFirstMove){
+            isFirstMove = false;
+        }
+        if(!hasMoved){
+            hasMoved = true;
+            isFirstMove = true;
+        }
+        board.getSpots()[nextSpot.getX()][nextSpot.getY()].setPiece(currentSpot.getPiece());
+        board.getSpots()[currentSpot.getX()][currentSpot.getY()].setPiece(null);
+    }
+
+    @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
-        return pawnMoves.getPossibleMoves(board,spot);
+        List<Spot> possibleMoves = pawnMoves.getPossibleMoves(board,spot);
+        PieceColor color = spot.getPiece().getColor();
+
+        if (board.getKingSpot(color).isBeaten(board, color)) {
+            possibleMoves.removeIf(move -> move.safeKing(board, color,this));
+        }
+        return possibleMoves;
     }
     public boolean hasMoved(){
         return hasMoved;
     }
-//    public void setHasMoved(){
-//        hasMoved = false;
-//    }
 
     public boolean isFirstMove() {
         return isFirstMove;
     }
 
-    public void setFirstMove(boolean firstMove) {
-        isFirstMove = firstMove;
-    }
 }
