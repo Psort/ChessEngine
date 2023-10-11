@@ -24,10 +24,10 @@ public class KingMoves {
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
 
-        // Dodaj standardowe ruchy króla
+        //Add standard king moves
         addStandardKingMoves(board, spot, possibleMoves);
 
-        // Dodaj możliwość roszad
+        // Add the possibility of castling
         addCastlingMoves(board, spot, possibleMoves);
 
         return possibleMoves;
@@ -36,9 +36,9 @@ public class KingMoves {
     private void addStandardKingMoves(Board board, Spot spot, List<Spot> possibleMoves) {
 
         int[][] moves = {
-                {-1, -1}, {-1, 0}, {-1, 1}, // Ruchy do góry
-                {0, -1}, /* Bieżące pole */ {0, 1}, // Ruchy w lewo i w prawo
-                {1, -1}, {1, 0}, {1, 1} // Ruchy w dół
+                {-1, -1}, {-1, 0}, {-1, 1}, //Moves up
+                {0, -1}, /* Current field */ {0, 1}, // Moves left and right
+                {1, -1}, {1, 0}, {1, 1} //Moves down
         };
 
         for (int[] move : moves) {
