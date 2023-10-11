@@ -13,8 +13,20 @@ public class Bishop extends Piece{
     }
 
     @Override
+    public void move(Board board,Spot currentSpot,Spot nextSpot) {
+        board.getSpots()[nextSpot.getX()][nextSpot.getY()].setPiece(currentSpot.getPiece());
+        board.getSpots()[currentSpot.getX()][currentSpot.getY()].setPiece(null);
+    }
+
+    @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
-        return bishopMoves.getPossibleMoves(board,spot);
+        List<Spot> possibleMoves = bishopMoves.getPossibleMoves(board,spot);
+        PieceColor color = spot.getPiece().getColor();
+
+        if (board.getKingSpot(color).isBeaten(board, color)) {
+            possibleMoves.removeIf(move -> move.safeKing(board, color,this));
+        }
+        return possibleMoves;
     }
 
 }
