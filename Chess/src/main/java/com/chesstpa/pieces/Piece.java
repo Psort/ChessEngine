@@ -17,6 +17,7 @@ public abstract class Piece {
     public PieceColor getColor() {
         return color;
     }
+    public abstract void move(Board board,Spot currentSpot,Spot nextSpot);
 
     public abstract List<Spot> getPossibleMoves(Board board, Spot spot);
 }
