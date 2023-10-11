@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Queen extends Piece{
+public class Queen extends Piece {
 
-    private final BishopMoves bishopMoves = new BishopMoves();
-    private final RookMoves rookMoves = new RookMoves();
+    private final BishopMoves bishopMoves = BishopMoves.getInstance();
+    private final RookMoves rookMoves = RookMoves.getInstance();
     public Queen(PieceColor color) {
         super(color);
     }

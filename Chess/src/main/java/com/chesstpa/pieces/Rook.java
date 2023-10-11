@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Rook extends Piece  {
-    private final RookMoves rookMoves = new RookMoves();
+    private final RookMoves rookMoves = RookMoves.getInstance();
 
     private boolean hasMoved = false;
     public Rook(PieceColor color) {

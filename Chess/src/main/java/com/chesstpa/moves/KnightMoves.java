@@ -9,6 +9,16 @@ import java.util.List;
 
 public class KnightMoves {
 
+    private static KnightMoves instance;
+
+    private KnightMoves(){}
+
+    public static KnightMoves getInstance(){
+        if (instance == null) {
+            instance = new KnightMoves();
+        }
+        return instance;
+    }
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
 

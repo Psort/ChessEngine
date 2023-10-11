@@ -11,7 +11,16 @@ import java.util.List;
 
 public class PawnMoves {
 
+    private static PawnMoves instance;
 
+    private PawnMoves(){}
+
+    public static PawnMoves getInstance(){
+        if (instance == null) {
+            instance = new PawnMoves();
+        }
+        return instance;
+    }
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
         int x = spot.getX();

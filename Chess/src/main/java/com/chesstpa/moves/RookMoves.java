@@ -9,7 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RookMoves {
+    private static RookMoves instance;
 
+    private RookMoves(){}
+
+    public static RookMoves getInstance(){
+        if (instance == null) {
+            instance = new RookMoves();
+        }
+        return instance;
+    }
     public List<Spot> getVerticalPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
         int x = spot.getX();

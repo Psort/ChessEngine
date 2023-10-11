@@ -9,7 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BishopMoves {
+    private static BishopMoves instance;
 
+    private BishopMoves(){}
+
+    public static BishopMoves getInstance(){
+        if (instance == null) {
+            instance = new BishopMoves();
+        }
+        return instance;
+    }
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
         PieceColor pieceColor = spot.getPiece().getColor();

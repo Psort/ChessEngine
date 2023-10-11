@@ -7,7 +7,7 @@ import com.chesstpa.moves.KnightMoves;
 import java.util.List;
 
 public class Knight extends Piece{
-    private  final KnightMoves knightMoves = new KnightMoves();
+    private final KnightMoves knightMoves = KnightMoves.getInstance();
 
     public Knight(PieceColor color) {
         super(color);

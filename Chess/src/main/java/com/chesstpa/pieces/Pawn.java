@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pawn extends Piece {
-    private  final PawnMoves pawnMoves = new PawnMoves();
+    private  final PawnMoves pawnMoves = PawnMoves.getInstance();
     private boolean hasMoved = false;
     private boolean isFirstMove = false;
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class King extends Piece {
 
-    KingMoves kingMoves = new KingMoves();
+    KingMoves kingMoves = KingMoves.getInstance();
 
     private boolean hasMoved = false;
 
