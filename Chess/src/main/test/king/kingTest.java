@@ -24,7 +24,8 @@ public class kingTest {
 
 
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(7,5),board.getSpot(7,6)));
-        List<Spot> takenPositions = board.getSpots()[7][4].getPiece().getPossibleMoves(board,board.getSpots()[7][4]);
+        Spot chekedSpot =board.getSpot(7,4);
+        List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
         assertEquals(correctPositions, takenPositions);
     }
     @Test
@@ -39,7 +40,8 @@ public class kingTest {
 
 
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(7,3),board.getSpot(7,2)));
-        List<Spot> takenPositions = board.getSpots()[7][4].getPiece().getPossibleMoves(board,board.getSpots()[7][4]);
+        Spot chekedSpot =board.getSpot(7,4);
+        List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
         assertEquals(correctPositions, takenPositions);
     }
     @Test
@@ -53,7 +55,8 @@ public class kingTest {
         board.getSpot(6,5).setPiece(new Pawn(PieceColor.White));
         board.getSpot(5,4).setPiece(new Knight(PieceColor.Black));
         List<Spot> correctPositions = new ArrayList<>();
-        List<Spot> takenPositions = board.getSpots()[7][4].getPiece().getPossibleMoves(board,board.getSpots()[7][4]);
+        Spot chekedSpot =board.getSpot(7,4);
+        List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
         assertEquals(correctPositions, takenPositions);
     }
     @Test
@@ -71,7 +74,8 @@ public class kingTest {
         king.move(board, board.getSpot(7,4), board.getSpot(7,3));
 
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(6,2),board.getSpot(7,2),board.getSpot(7,4)));
-        List<Spot> takenPositions = board.getSpots()[7][3].getPiece().getPossibleMoves(board,board.getSpots()[7][3]);
+        Spot chekedSpot =board.getSpot(7,3);
+        List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
         assertEquals(correctPositions, takenPositions);
 
     }

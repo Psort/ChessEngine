@@ -17,7 +17,8 @@ public class PawnTest {
         Board board = getNullBoard();
         board.getSpot(6,0).setPiece(new Pawn(PieceColor.White));
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(5,0),board.getSpot(4,0)));
-        List<Spot> takenPositions = board.getSpot(6,0).getPiece().getPossibleMoves(board,board.getSpot(6,0));
+        Spot chekedSpot =board.getSpot(6,0);
+        List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
         assertEquals(correctPositions, takenPositions);
     }
     @Test
@@ -25,11 +26,13 @@ public class PawnTest {
         Board board = getNullBoard();
         board.getSpot(6,0).setPiece(new Pawn(PieceColor.White));
 
-        Pawn pawn = (Pawn) board.getSpot(6,0).getPiece();
-        pawn.move(board, board.getSpot(6,0), board.getSpot(5,0));
+        Spot pawnSpot = board.getSpot(6,0);
+        Spot nextSpot = board.getSpot(5,0);
+        pawnSpot.getPiece().move(board, pawnSpot, nextSpot);
 
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(4,0)));
-        List<Spot> takenPositions = board.getSpot(5,0).getPiece().getPossibleMoves(board,board.getSpots()[5][0]);
+        Spot chekedSpot =board.getSpot(5,0);
+        List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
         assertEquals(correctPositions, takenPositions);
     }
     @Test
@@ -39,7 +42,8 @@ public class PawnTest {
         board.getSpot(5,0).setPiece(new Pawn(PieceColor.Black));
 
         List<Spot> correctPositions = new ArrayList<>();
-        List<Spot> takenPositions = board.getSpots()[6][0].getPiece().getPossibleMoves(board,board.getSpots()[6][0]);
+        Spot chekedSpot =board.getSpot(6,0);
+        List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
         assertEquals(correctPositions, takenPositions);
     }
     @Test
