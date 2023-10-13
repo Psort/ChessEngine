@@ -4,25 +4,29 @@ import com.chesstpa.board.Board;
 import com.chesstpa.board.Spot;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.stream.Collectors;
 
-public class Engine {
+public class Game {
 
     Board board;
 
-    public void start(){
+    public Game(){
         this.board = new Board();
     }
-    public List<Spot> getPossibleMoves(String boardState, String piecePosition){
+    public String getPossibleMoves(String boardState, String piecePosition){
         board.setBoardState(boardState);
-        int[] transformPosition = transformPosition(piecePosition);
+        int[] transformPosition = transformPositionToIntList(piecePosition);
         int x = transformPosition[0];
         int y = transformPosition[1];
         Spot spot = board.getSpot(x,y);
-        return spot.getPiece().getPossibleMoves(board,spot);
+        return spot.getPiece().getPossibleMoves(board, spot)
+                .stream()
+                .map(s -> transformIntListToPosition(s.getX(), s.getY()))
+                .collect(Collectors.joining("/"));
+
     }
 
-    private static int[] transformPosition(String position) {
+    private static int[] transformPositionToIntList(String position) {
         HashMap<Character, Integer> column = new HashMap<>();
         column.put('a', 0);
         column.put('b', 1);
@@ -38,5 +42,10 @@ public class Engine {
         result[1] = column.get(position.charAt(0));
 
         return result;
+    }
+    private static String transformIntListToPosition(int x,int y) {
+        char column = (char) (y + 'a');
+        char row = (char) (x+ '1');
+        return String.valueOf(column) + String.valueOf(row);
     }
 }
