@@ -14,6 +14,11 @@ public class Game {
         this.board = new Board();
     }
     public String getPossibleMovesForPosition(String boardState, String piecePosition){
+
+        if (piecePosition.length() != 2){
+            return "";
+        }
+
         board.setBoardState(boardState);
         int[] transformPosition = transformPositionToIntList(piecePosition);
         int x = transformPosition[0];
@@ -31,22 +36,10 @@ public class Game {
 
     }
 
-    private static int[] transformPositionToIntList(String position) {
-        HashMap<Character, Integer> column = new HashMap<>();
-        column.put('a', 0);
-        column.put('b', 1);
-        column.put('c', 2);
-        column.put('d', 3);
-        column.put('e', 4);
-        column.put('f', 5);
-        column.put('g', 6);
-        column.put('h', 7);
-
-        int[] result = new int[2];
-        result[0] = position.charAt(1)-49;
-        result[1] = column.get(position.charAt(0));
-
-        return result;
+    private int[] transformPositionToIntList(String position) {
+        int x = position.toUpperCase().charAt(0) - 'A'; // Przyjmując, że pozycje są w formie "A1", "B2", itp.
+        int y = Integer.parseInt(position.substring(1)) - 1;
+        return new int[]{x, y};
     }
     private static String transformIntListToPosition(int x,int y) {
         char column = (char) (y + 'a');
