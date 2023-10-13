@@ -13,12 +13,17 @@ public class Game {
     public Game(){
         this.board = new Board();
     }
-    public String getPossibleMoves(String boardState, String piecePosition){
+    public String getPossibleMovesForPosition(String boardState, String piecePosition){
         board.setBoardState(boardState);
         int[] transformPosition = transformPositionToIntList(piecePosition);
         int x = transformPosition[0];
         int y = transformPosition[1];
         Spot spot = board.getSpot(x,y);
+
+        if (spot.getPiece() == null) {
+            return "";
+        }
+
         return spot.getPiece().getPossibleMoves(board, spot)
                 .stream()
                 .map(s -> transformIntListToPosition(s.getX(), s.getY()))
