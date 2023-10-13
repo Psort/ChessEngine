@@ -4,12 +4,12 @@ import com.chesstpa.pieces.*;
 
 public class Spot {
     private Piece piece;
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     public Spot(int x, int y, Piece piece) {
         this.setPiece(piece);
-        this.setX(x);
-        this.setY(y);
+        this.x = x;
+        this.y = y;
     }
     public Piece getPiece() {
         return this.piece;
@@ -20,15 +20,11 @@ public class Spot {
     public int getX() {
         return this.x;
     }
-    public void setX(int x) {
-        this.x = x;
-    }
+
     public int getY() {
         return this.y;
     }
-    public void setY(int y) {
-        this.y = y;
-    }
+
     public boolean isBeaten(Board board,PieceColor color) {
         // Check attack by queen, bishop, rook, king, knight and pawn
         return isBeatenByQueen(color, board) || isBeatenByBishop(color, board)
@@ -117,25 +113,21 @@ public class Spot {
         while (isValidCoordinate(newX, newY)) {
             Spot currentSpot = board.getSpot(newX, newY);
             if (currentSpot.getPiece() != null) {
-                if (currentSpot.getPiece().getColor() != color) {
-                    if (currentSpot.getPiece() instanceof Queen ||
-                            (rowChange == 0 && colChange == 0) ||
-                            (Math.abs(rowChange) == 1 && Math.abs(colChange) == 1 && currentSpot.getPiece() instanceof King) ||
-                            (Math.abs(rowChange) == 1 && Math.abs(colChange) == 0 && currentSpot.getPiece() instanceof Rook) ||
-                            (Math.abs(rowChange) == 0 && Math.abs(colChange) == 1 && currentSpot.getPiece() instanceof Rook) ||
-                            (Math.abs(rowChange) == 1 && Math.abs(colChange) == 2 && currentSpot.getPiece() instanceof Knight) ||
-                            (Math.abs(rowChange) == 2 && Math.abs(colChange) == 1 && currentSpot.getPiece() instanceof Knight) ||
-                            (Math.abs(rowChange) == 1 && Math.abs(colChange) == 1 && currentSpot.getPiece() instanceof Pawn)) {
-                        return true;
-                    }
+                if (currentSpot.getPiece().getColor() != color &&
+                        ((rowChange == 0 || colChange == 0) && (currentSpot.getPiece() instanceof Rook || currentSpot.getPiece() instanceof Queen) ||
+                                (Math.abs(rowChange) == Math.abs(colChange) && (currentSpot.getPiece() instanceof Bishop || currentSpot.getPiece() instanceof Queen)))) {
+                    return true;
                 }
                 break;
             }
             newX += rowChange;
             newY += colChange;
         }
+
         return false;
     }
+
+
 
     private boolean isOpponentKing(Spot spot, PieceColor color) {
         return spot.getPiece() instanceof King && spot.getPiece().getColor() != color;
