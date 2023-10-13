@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class kingTest {
     @Test
     void canCastleKingSideTest() {
-        Board board = getNullBoard();
+        Board board = new Board();
         board.getSpot(7,3).setPiece(new Queen(PieceColor.White));
         board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(7,7).setPiece(new Rook(PieceColor.White));
@@ -30,7 +30,7 @@ public class kingTest {
     }
     @Test
     void canCastleQueenSideTest() {
-        Board board = getNullBoard();
+        Board board = new Board();
         board.getSpot(7,5).setPiece(new Bishop(PieceColor.White));
         board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(7,0).setPiece(new Rook(PieceColor.White));
@@ -46,7 +46,7 @@ public class kingTest {
     }
     @Test
     void cantCastleQueenSideByAttackTest() {
-        Board board = getNullBoard();
+        Board board = new Board();
         board.getSpot(7,5).setPiece(new Bishop(PieceColor.White));
         board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(7,0).setPiece(new Rook(PieceColor.White));
@@ -61,7 +61,7 @@ public class kingTest {
     }
     @Test
     void cantCastleQueenSideByMoveKingTest() {
-        Board board = getNullBoard();
+        Board board = new Board();
         board.getSpot(7,5).setPiece( new Bishop(PieceColor.White));
         board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(7,0).setPiece(new Rook(PieceColor.White));
@@ -80,13 +80,4 @@ public class kingTest {
 
     }
 
-    private Board getNullBoard(){
-        Board board = new Board();
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                board.getSpots()[i][j] = new Spot(i, j, null);
-            }
-        }
-        return board;
-    }
 }

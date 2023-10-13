@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PawnTest {
     @Test
     void firstMoveTest() {
-        Board board = getNullBoard();
+        Board board = new Board();
         board.getSpot(6,0).setPiece(new Pawn(PieceColor.White));
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(5,0),board.getSpot(4,0)));
         Spot chekedSpot =board.getSpot(6,0);
@@ -23,7 +23,7 @@ public class PawnTest {
     }
     @Test
     void secondMoveTest() {
-        Board board = getNullBoard();
+        Board board = new Board();
         board.getSpot(6,0).setPiece(new Pawn(PieceColor.White));
 
         Spot pawnSpot = board.getSpot(6,0);
@@ -37,7 +37,7 @@ public class PawnTest {
     }
     @Test
     void blockPawnTest() {
-        Board board = getNullBoard();
+        Board board = new Board();
         board.getSpot(6,0).setPiece(new Pawn(PieceColor.White));
         board.getSpot(5,0).setPiece(new Pawn(PieceColor.Black));
 
@@ -48,7 +48,7 @@ public class PawnTest {
     }
     @Test
     void enPassantTest() {
-        Board board = getNullBoard();
+        Board board = new Board();
         board.getSpot(3,1).setPiece(new Pawn(PieceColor.White));
         board.getSpot(2,1).setPiece(new Pawn(PieceColor.Black));
         board.getSpot(1,2).setPiece(new Pawn(PieceColor.Black));
@@ -61,13 +61,4 @@ public class PawnTest {
         assertEquals(correctPositions, takenPositions);
     }
 
-    private Board getNullBoard(){
-        Board board = new Board();
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                board.getSpots()[i][j] = new Spot(i, j, null);
-            }
-        }
-        return board;
-    }
 }
