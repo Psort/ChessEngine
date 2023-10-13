@@ -14,47 +14,13 @@ public class Board {
     private Spot whiteKingSpot = new Spot(7, 4, new King(PieceColor.White));
     private Spot blackKingSpot = new Spot(0, 4, new King(PieceColor.Black));
     public Board() {
-        this.initializeBoard();
+        initializeEmptyBoard();
     }
-
-    public void initializeBoard(){
-        // initialize black pieces
-        this.spots[0][0] = new Spot(0, 0, new Rook(PieceColor.Black));
-        this.spots[0][1] = new Spot(0, 1, new Knight(PieceColor.Black));
-        this.spots[0][2] = new Spot(0, 2, new Bishop(PieceColor.Black));
-        this.spots[0][3] = new Spot(0, 3, new Queen(PieceColor.Black));
-        this.spots[0][4] = blackKingSpot;
-        this.spots[0][5] = new Spot(0, 5, new Bishop(PieceColor.Black));
-        this.spots[0][6] = new Spot(0, 6, new Knight(PieceColor.Black));
-        this.spots[0][7] = new Spot(0, 7, new Rook(PieceColor.Black));
-
-        //initialize white pieces
-        this.spots[7][0] = new Spot(7, 0, new Rook(PieceColor.White));
-        this.spots[7][1] = new Spot(7, 1, new Knight(PieceColor.White) );
-        this.spots[7][2] = new Spot(7, 2, new Bishop(PieceColor.White) );
-        this.spots[7][3] = new Spot(7, 3,new Queen(PieceColor.White));
-        this.spots[7][4] = whiteKingSpot;
-        this.spots[7][5] = new Spot(7, 5, new Bishop(PieceColor.White));
-        this.spots[7][6] = new Spot(7, 6, new Knight(PieceColor.White));
-        this.spots[7][7] = new Spot(7, 7, new Rook(PieceColor.White));
-
-        // initialize black pawns
-        for (int i = 0; i < Board.SIZE; i++) {
-            this.spots[1][i] = new Spot(1, i, new Pawn(PieceColor.Black));
-        }
-
-        // initialize white pawns
-        for (int i = 0; i < Board.SIZE; i++) {
-            this.spots[6][i] = new Spot(6, i, new Pawn(PieceColor.White));
-//            this.spots[6][i] = new Spot(6, i, null);
-        }
-
-        // initialize spots without any piece
-        for (int i = 2; i < 6; i++) {
+    private void initializeEmptyBoard(){
+        for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                this.spots[i][j] = new Spot(i, j, null);
+                spots[i][j] = new Spot(i, j, null);
             }
-
         }
     }
 
@@ -65,25 +31,6 @@ public class Board {
         return spots[x][y];
     }
 
-    public void printBoard(){
-        for(String a :new ArrayList<String>(List.of("    a  ","  b  ","  c  ","  d  ","  e  ","  f  ","  g  ","  h  "))){
-            System.out.print(a);
-        }
-        System.out.println();
-        int i = 1;
-        for (Spot[] spots1: spots){
-            System.out.print(i++ +" ");
-            for (Spot spot: spots1){
-                if (spot.getPiece() !=null){
-                    System.out.print(" "+spot.getX()+spot.getPiece().getClass().getSimpleName().charAt(0)+spot.getY()+" ");
-                }
-                else {
-                    System.out.print(" "+spot.getX()+":"+spot.getY()+" ");
-                }
-            }
-            System.out.println();
-        }
-    }
 
     public void setKingSpot(Spot nextSpot) {
         if(nextSpot.getPiece().getColor() == PieceColor.White){
@@ -127,5 +74,44 @@ public class Board {
                 .filter(spot -> spot.getPiece() != null && spot.getPiece().getColor() == color)
                 .flatMap(spot -> spot.getPiece().getPossibleMoves(this, spot).stream())
                 .toList();
+    }
+
+    public void setBoardState(String boardState) {
+        initializeEmptyBoard();
+        String[] strings = boardState.split("/");
+        for(int i = 0; i< SIZE;i++){
+            int j = 0;
+
+            for (char c : strings[i].toCharArray()){
+                if (Character.isDigit(c)){
+                    int emptySpace = Character.getNumericValue(c);
+                    j+=emptySpace;
+                }else {
+                    Piece piece = createPieceFromSymbol(c);
+                    if(piece != null){
+                        spots[i][j].setPiece(piece);
+                    }
+                    j++;
+                }
+            }
+        }
+    }
+    private Piece createPieceFromSymbol(char symbol) {
+        return switch (symbol) {
+            case 'r' -> new Rook(PieceColor.Black);
+            case 'n' -> new Knight(PieceColor.Black);
+            case 'b' -> new Bishop(PieceColor.Black);
+            case 'q' -> new Queen(PieceColor.Black);
+            case 'k' -> new King(PieceColor.Black);
+            case 'p' -> new Pawn(PieceColor.Black);
+            case 'R' -> new Rook(PieceColor.White);
+            case 'N' -> new Knight(PieceColor.White);
+            case 'B' -> new Bishop(PieceColor.White);
+            case 'Q' -> new Queen(PieceColor.White);
+            case 'K' -> new King(PieceColor.White);
+            case 'P' -> new Pawn(PieceColor.White);
+            default -> null;
+        };
+
     }
 }
