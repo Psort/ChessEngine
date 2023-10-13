@@ -112,7 +112,7 @@ public class Spot {
 
         while (isValidCoordinate(newX, newY)) {
             Spot currentSpot = board.getSpot(newX, newY);
-            if (currentSpot.getPiece() != null) {
+            if (!currentSpot.isEmpty()) {
                 if (currentSpot.getPiece().getColor() != color &&
                         ((rowChange == 0 || colChange == 0) && (currentSpot.getPiece() instanceof Rook || currentSpot.getPiece() instanceof Queen) ||
                                 (Math.abs(rowChange) == Math.abs(colChange) && (currentSpot.getPiece() instanceof Bishop || currentSpot.getPiece() instanceof Queen)))) {
