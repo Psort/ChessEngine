@@ -11,8 +11,8 @@ import java.util.stream.Stream;
 
 public class Queen extends Piece {
 
-    private final BishopMoves bishopMoves = BishopMoves.getInstance();
-    private final RookMoves rookMoves = RookMoves.getInstance();
+    private final BishopMoves bishopMoves = new BishopMoves();
+    private final RookMoves rookMoves = new RookMoves();
     public Queen(PieceColor color) {
         super(color);
     }

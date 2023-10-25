@@ -7,7 +7,7 @@ import com.chesstpa.moves.BishopMoves;
 import java.util.List;
 
 public class Bishop extends Piece{
-    private final BishopMoves bishopMoves = BishopMoves.getInstance();
+    private final BishopMoves bishopMoves =new BishopMoves();
     public Bishop(PieceColor color) {
         super(color);
     }

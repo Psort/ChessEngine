@@ -7,7 +7,7 @@ import com.chesstpa.moves.PawnMoves;
 import java.util.List;
 
 public class Pawn extends Piece {
-    private  final PawnMoves pawnMoves = PawnMoves.getInstance();
+    private  final PawnMoves pawnMoves = new PawnMoves();
     private boolean hasMoved = false;
     private boolean isFirstMove = false;
 

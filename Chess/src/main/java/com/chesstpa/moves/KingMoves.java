@@ -11,16 +11,6 @@ import java.util.List;
 
 public class KingMoves {
 
-    private static KingMoves instance;
-
-    private KingMoves(){}
-
-    public static KingMoves getInstance(){
-        if (instance == null) {
-            instance = new KingMoves();
-        }
-        return instance;
-    }
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
 
