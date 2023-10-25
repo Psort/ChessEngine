@@ -11,15 +11,16 @@ public class Board {
     public final static int SIZE = 8;
     private Spot[][] spots = new Spot[SIZE][SIZE];
 
-    private Spot whiteKingSpot = new Spot(7, 4, new King(PieceColor.White));
-    private Spot blackKingSpot = new Spot(0, 4, new King(PieceColor.Black));
+    private Spot whiteKingSpot = new Spot(new Position(7,4), new King(PieceColor.White));
+    private Spot blackKingSpot = new Spot(new Position(0,4), new King(PieceColor.Black));
     public Board() {
         initializeEmptyBoard();
     }
     private void initializeEmptyBoard(){
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                spots[i][j] = new Spot(i, j, null);
+                Position position = new Position(i,j);
+                spots[i][j] = new Spot(position, null);
             }
         }
     }
@@ -65,8 +66,8 @@ public class Board {
     }
 
     public void swapSpots(Spot currentSpot, Spot nextSpot){
-        this.getSpots()[nextSpot.getX()][nextSpot.getY()].setPiece(currentSpot.getPiece());
-        this.getSpots()[currentSpot.getX()][currentSpot.getY()].setPiece(null);
+        this.getSpots()[nextSpot.getPosition().getX()][nextSpot.getPosition().getY()].setPiece(currentSpot.getPiece());
+        this.getSpots()[currentSpot.getPosition().getX()][currentSpot.getPosition().getY()].setPiece(null);
     }
     private List<Spot> getPossibleMovesForAllPiece(PieceColor color){
         return Stream.of(spots)

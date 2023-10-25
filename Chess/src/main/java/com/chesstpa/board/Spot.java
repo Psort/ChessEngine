@@ -4,12 +4,10 @@ import com.chesstpa.pieces.*;
 
 public class Spot {
     private Piece piece;
-    private final int x;
-    private final int y;
-    public Spot(int x, int y, Piece piece) {
+    private final Position position;
+    public Spot(Position position, Piece piece) {
         this.setPiece(piece);
-        this.x = x;
-        this.y = y;
+        this.position = position;
     }
     public Piece getPiece() {
         return this.piece;
@@ -17,15 +15,12 @@ public class Spot {
     public void setPiece(Piece p) {
         this.piece = p;
     }
-    public int getX() {
-        return this.x;
+
+    public Position getPosition() {
+        return position;
     }
 
-    public int getY() {
-        return this.y;
-    }
-
-    public boolean isBeaten(Board board,PieceColor color) {
+    public boolean isBeaten(Board board, PieceColor color) {
         // Check attack by queen, bishop, rook, king, knight and pawn
         return isBeatenByQueen(color, board) || isBeatenByBishop(color, board)
                 || isBeatenByRook(color, board) || isBeatenByKing(color, board)
@@ -57,8 +52,8 @@ public class Spot {
         };
 
         for (int[] move : kingMoves) {
-            int newX = x + move[0];
-            int newY = y + move[1];
+            int newX = position.getX() + move[0];
+            int newY = position.getY() + move[1];
 
             if (isValidCoordinate(newX, newY) && isOpponentKing(board.getSpot(newX, newY), color)) {
                 return true;
@@ -77,8 +72,8 @@ public class Spot {
         };
 
         for (int[] move : knightMoves) {
-            int newX = x + move[0];
-            int newY = y + move[1];
+            int newX = position.getX() + move[0];
+            int newY = position.getY() + move[1];
 
             if (isValidCoordinate(newX, newY) && isOpponentKnight(board.getSpot(newX, newY), color)) {
                 return true;
@@ -95,8 +90,8 @@ public class Spot {
         };
 
         for (int[] move : pawnMoves) {
-            int newX = x + move[0];
-            int newY = y + move[1];
+            int newX = position.getX() + move[0];
+            int newY = position.getY() + move[1];
 
             if (isValidCoordinate(newX, newY) && isOpponentPawn(board.getSpot(newX, newY), color)) {
                 return true;
@@ -107,8 +102,8 @@ public class Spot {
     }
 
     private boolean isBeatenByDirection(PieceColor color, Board board, int rowChange, int colChange) {
-        int newX = x + rowChange;
-        int newY = y + colChange;
+        int newX = position.getX() + rowChange;
+        int newY = position.getY() + colChange;
 
         while (isValidCoordinate(newX, newY)) {
             Spot currentSpot = board.getSpot(newX, newY);

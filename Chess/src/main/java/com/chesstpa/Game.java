@@ -31,7 +31,7 @@ public class Game {
 
         return spot.getPiece().getPossibleMoves(board, spot)
                 .stream()
-                .map(s -> transformIntListToPosition(s.getX(), s.getY()))
+                .map(s -> transformIntListToPosition(s.getPosition().getX(), s.getPosition().getY()))
                 .collect(Collectors.joining("/"));
 
     }

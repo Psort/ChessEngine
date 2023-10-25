@@ -12,19 +12,20 @@ public class RookMoves {
 
     public List<Spot> getVerticalPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
-        int x = spot.getX();
+        int x = spot.getPosition().getX();
+        int y = spot.getPosition().getY();
         PieceColor pieceColor = spot.getPiece().getColor();
 
         // Check downward moves
         for (int i = x + 1; i < board.getSpots().length; i++) {
-            if (checkAndUpdateMove(board, possibleMoves,pieceColor, i, spot.getY())) {
+            if (checkAndUpdateMove(board, possibleMoves,pieceColor, i, y)) {
                 break;
             }
         }
 
         // Check upward moves
         for (int i = x - 1; i >= 0; i--) {
-            if (checkAndUpdateMove(board, possibleMoves,pieceColor, i, spot.getY())) {
+            if (checkAndUpdateMove(board, possibleMoves,pieceColor, i, y)) {
                 break;
             }
         }
@@ -34,19 +35,20 @@ public class RookMoves {
 
     public List<Spot> getHorizontalPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
-        int y = spot.getY();
+        int x = spot.getPosition().getX();
+        int y = spot.getPosition().getY();
         PieceColor pieceColor = spot.getPiece().getColor();
 
         // Check right moves
-        for (int i = y + 1; i < board.getSpots()[spot.getX()].length; i++) {
-            if (checkAndUpdateMove(board, possibleMoves,pieceColor, spot.getX(), i)) {
+        for (int i = y + 1; i < board.getSpots()[x].length; i++) {
+            if (checkAndUpdateMove(board, possibleMoves,pieceColor, x, i)) {
                 break;
             }
         }
 
         // Check left moves
         for (int i = y - 1; i >= 0; i--) {
-            if (checkAndUpdateMove(board, possibleMoves,pieceColor, spot.getX(), i)) {
+            if (checkAndUpdateMove(board, possibleMoves,pieceColor, x, i)) {
                 break;
             }
         }

@@ -13,8 +13,8 @@ public class PawnMoves {
 
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
-        int x = spot.getX();
-        int y = spot.getY();
+        int x = spot.getPosition().getX();
+        int y = spot.getPosition().getY();
         int direction = (spot.getPiece().getColor() == PieceColor.White) ? -1 : 1;
 
         // Standard pawn move one square forward

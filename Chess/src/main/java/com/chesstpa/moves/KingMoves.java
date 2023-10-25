@@ -32,8 +32,8 @@ public class KingMoves {
         };
 
         for (int[] move : moves) {
-            int newX = spot.getX() + move[0];
-            int newY = spot.getY() + move[1];
+            int newX = spot.getPosition().getX() + move[0];
+            int newY = spot.getPosition().getY() + move[1];
             if (isValidMove(newX, newY, board, spot.getPiece().getColor())) {
                 possibleMoves.add(board.getSpots()[newX][newY]);
             }
@@ -41,11 +41,13 @@ public class KingMoves {
     }
 
     private void addCastlingMoves(Board board, Spot spot, List<Spot> possibleMoves) {
+        int x = spot.getPosition().getX();
+        int y = spot.getPosition().getY() ;
         if (canCastleKingSide(board, spot)) {
-            possibleMoves.add(board.getSpots()[spot.getX()][spot.getY() + 2]);
+            possibleMoves.add(board.getSpots()[x][y + 2]);
         }
         if (canCastleQueenSide(board, spot)) {
-            possibleMoves.add(board.getSpots()[spot.getX()][spot.getY() - 2]);
+            possibleMoves.add(board.getSpots()[x][y - 2]);
         }
     }
 
@@ -58,8 +60,8 @@ public class KingMoves {
 
     private boolean canCastleKingSide(Board board, Spot spot) {
         // Check that the king and rook are in their original positions
-        int x = spot.getX();
-        int y = spot.getY();
+        int x = spot.getPosition().getX();
+        int y = spot.getPosition().getY() ;
         King king = (King) spot.getPiece();
         return  !king.hasMoved() &&
                 board.getSpots()[x][y + 3].getPiece() instanceof Rook &&
@@ -72,8 +74,8 @@ public class KingMoves {
 
     private boolean canCastleQueenSide(Board board, Spot spot) {
         // Check that the king and rook are in their original positions
-        int x = spot.getX();
-        int y = spot.getY();
+        int x = spot.getPosition().getX();
+        int y = spot.getPosition().getY() ;
         King king = (King) spot.getPiece();
         return  !king.hasMoved() &&
                 board.getSpots()[x][y - 4].getPiece() instanceof Rook &&

@@ -12,8 +12,8 @@ public class KnightMoves {
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
 
-        int x = spot.getX();
-        int y = spot.getY();
+        int x = spot.getPosition().getX();
+        int y = spot.getPosition().getY();
 
         int[][] knightMoves = {
                 {-2, -1}, {-2, 1}, // Moves upper left and upper right

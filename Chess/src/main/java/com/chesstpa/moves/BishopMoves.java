@@ -12,8 +12,8 @@ public class BishopMoves {
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
         PieceColor pieceColor = spot.getPiece().getColor();
-        int x = spot.getX();
-        int y = spot.getY();
+        int x = spot.getPosition().getX();
+        int y = spot.getPosition().getY();
 
         // Check moves to the down-right
         for (int i = 1; x + i < board.getSpots().length && y + i < board.getSpots()[x + i].length; i++) {
