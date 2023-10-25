@@ -24,17 +24,11 @@ public class Queen extends Piece {
 
     @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
-        List<Spot> verticalMoves = rookMoves.getVerticalPossibleMoves(board,spot);
-        List<Spot> horizontalMoves = rookMoves.getHorizontalPossibleMoves(board,spot);
+        List<Spot> rookPossibleMoves = rookMoves.getPossibleMoves(board,spot);
         List<Spot> diagonalMoves = bishopMoves.getPossibleMoves(board,spot);
-        List<Spot> possibleMoves = Stream.concat(Stream.concat(verticalMoves.stream(), horizontalMoves.stream()), diagonalMoves.stream())
+        List<Spot> possibleMoves = Stream.concat(rookPossibleMoves.stream(), diagonalMoves.stream())
                 .collect(Collectors.toList());
-        PieceColor color = this.getColor();
-
-        if (board.kingIsCheck(color)){
-            possibleMoves.removeIf(move -> move.safeKing(board, color,this));
-        }
-        return possibleMoves;
+        return filterPositionByKingCheck(board,possibleMoves);
     }
 
 }

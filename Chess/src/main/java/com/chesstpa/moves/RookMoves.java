@@ -7,8 +7,17 @@ import com.chesstpa.pieces.PieceColor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RookMoves {
+
+    public List<Spot> getPossibleMoves(Board board, Spot spot) {
+        return Stream.concat(
+                getVerticalPossibleMoves(board,spot).stream(),
+                getHorizontalPossibleMoves(board,spot).stream()
+        ).collect(Collectors.toList());
+    }
 
     public List<Spot> getVerticalPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();

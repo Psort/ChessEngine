@@ -20,4 +20,11 @@ public abstract class Piece {
     public abstract void move(Board board,Spot currentSpot,Spot nextSpot);
 
     public abstract List<Spot> getPossibleMoves(Board board, Spot spot);
+
+    protected List<Spot> filterPositionByKingCheck(Board board,List<Spot> possibleMoves){
+        if (board.kingIsCheck(color)) {
+            possibleMoves.removeIf(move -> move.safeKing(board, color,this));
+        }
+        return possibleMoves;
+    }
 }

@@ -21,13 +21,7 @@ public class Knight extends Piece{
     @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = knightMoves.getPossibleMoves(board, spot);
-        PieceColor color = this.getColor();
-
-        if (board.kingIsCheck(color)) {
-            possibleMoves.removeIf(move -> move.safeKing(board, color,this));
-        }
-
-        return possibleMoves;
+        return filterPositionByKingCheck(board,possibleMoves);
     }
 
 }

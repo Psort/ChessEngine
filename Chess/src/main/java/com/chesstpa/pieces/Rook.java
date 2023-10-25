@@ -26,15 +26,8 @@ public class Rook extends Piece  {
 
     @Override
     public List<Spot> getPossibleMoves(Board board,Spot spot){
-        List<Spot> verticalMoves = rookMoves.getVerticalPossibleMoves(board,spot);
-        List<Spot> horizontalMoves = rookMoves.getHorizontalPossibleMoves(board,spot);
-        List<Spot> possibleMoves = Stream.concat(verticalMoves.stream(), horizontalMoves.stream()).collect(Collectors.toList());
-        PieceColor color = this.getColor();
-
-        if (board.kingIsCheck(color)) {
-            possibleMoves.removeIf(move -> move.safeKing(board, color,this));
-        }
-        return possibleMoves;
+        List<Spot> possibleMoves = rookMoves.getPossibleMoves(board,spot);
+        return filterPositionByKingCheck(board,possibleMoves);
     }
 
 
