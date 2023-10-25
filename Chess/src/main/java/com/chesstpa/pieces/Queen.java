@@ -16,12 +16,7 @@ public class Queen extends Piece {
     public Queen(PieceColor color) {
         super(color);
     }
-
-    @Override
-    public void move(Board board,Spot currentSpot,Spot nextSpot) {
-       board.swapSpots(currentSpot, nextSpot);
-    }
-
+    
     @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> rookPossibleMoves = rookMoves.getPossibleMoves(board,spot);

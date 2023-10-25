@@ -7,37 +7,19 @@ import com.chesstpa.moves.PawnMoves;
 import java.util.List;
 
 public class Pawn extends Piece {
-    private  final PawnMoves pawnMoves = new PawnMoves();
-    private boolean hasMoved = false;
-    private boolean isFirstMove = false;
+    private  final PawnMoves pawnMoves = new PawnMoves(getColor() == PieceColor.White ? 6:1);
+
 
     public Pawn(PieceColor color) {
         super(color);
     }
 
-    @Override
-    public void move(Board board,Spot currentSpot,Spot nextSpot) {
-        if(isFirstMove){
-            isFirstMove = false;
-        }
-        if(!hasMoved){
-            hasMoved = true;
-            isFirstMove = true;
-        }
-        board.swapSpots(currentSpot, nextSpot);
-    }
 
     @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = pawnMoves.getPossibleMoves(board,spot);
         return filterPositionByKingCheck(board,possibleMoves);
     }
-    public boolean hasMoved(){
-        return hasMoved;
-    }
 
-    public boolean isFirstMove() {
-        return isFirstMove;
-    }
 
 }

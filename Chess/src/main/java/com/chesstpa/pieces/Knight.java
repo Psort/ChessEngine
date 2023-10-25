@@ -14,11 +14,6 @@ public class Knight extends Piece{
     }
 
     @Override
-    public void move(Board board,Spot currentSpot,Spot nextSpot) {
-        board.swapSpots(currentSpot, nextSpot);
-    }
-
-    @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = knightMoves.getPossibleMoves(board, spot);
         return filterPositionByKingCheck(board,possibleMoves);
