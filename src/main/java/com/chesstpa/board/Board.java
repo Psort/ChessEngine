@@ -1,5 +1,6 @@
 package com.chesstpa.board;
 
+import com.chesstpa.DataConvert;
 import com.chesstpa.pieces.*;
 
 import java.util.ArrayList;
@@ -88,7 +89,7 @@ public class Board {
                     int emptySpace = Character.getNumericValue(c);
                     j+=emptySpace;
                 }else {
-                    Piece piece = createPieceFromSymbol(c);
+                    Piece piece = DataConvert.createPieceFromSymbol(c);
                     if(piece != null){
                         spots[i][j].setPiece(piece);
                     }
@@ -97,22 +98,23 @@ public class Board {
             }
         }
     }
-    private Piece createPieceFromSymbol(char symbol) {
-        return switch (symbol) {
-            case 'r' -> new Rook(PieceColor.Black);
-            case 'n' -> new Knight(PieceColor.Black);
-            case 'b' -> new Bishop(PieceColor.Black);
-            case 'q' -> new Queen(PieceColor.Black);
-            case 'k' -> new King(PieceColor.Black);
-            case 'p' -> new Pawn(PieceColor.Black);
-            case 'R' -> new Rook(PieceColor.White);
-            case 'N' -> new Knight(PieceColor.White);
-            case 'B' -> new Bishop(PieceColor.White);
-            case 'Q' -> new Queen(PieceColor.White);
-            case 'K' -> new King(PieceColor.White);
-            case 'P' -> new Pawn(PieceColor.White);
-            default -> null;
-        };
-
+    public void printBoard(){
+        for(String a :new ArrayList<String>(List.of("    a  ","  b  ","  c  ","  d  ","  e  ","  f  ","  g  ","  h  "))){
+            System.out.print(a);
+        }
+        System.out.println();
+        int i = 1;
+        for (Spot[] spots1: spots){
+            System.out.print(i++ +" ");
+            for (Spot spot: spots1){
+                if (spot.getPiece() !=null){
+                    System.out.print(" "+spot.getPosition().getX()+spot.getPiece().getClass().getSimpleName().charAt(0)+spot.getPosition().getY()+" ");
+                }
+                else {
+                    System.out.print(" "+spot.getPosition().getX()+":"+spot.getPosition().getY()+" ");
+                }
+            }
+            System.out.println();
+        }
     }
 }
