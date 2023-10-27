@@ -2,6 +2,11 @@ package com.chesstpa.board;
 
 import com.chesstpa.pieces.*;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class Spot {
     private Piece piece;
     private final Position position;
@@ -21,124 +26,19 @@ public class Spot {
     }
 
     public boolean isBeaten(Board board, PieceColor color) {
-        // Check attack by queen, bishop, rook, king, knight and pawn
-        return isBeatenByQueen(color, board) || isBeatenByBishop(color, board)
-                || isBeatenByRook(color, board) || isBeatenByKing(color, board)
-                || isBeatenByKnight(color, board) || isBeatenByPawn(color, board);
+        int x = position.getX();
+        int y = position.getY();
+        Piece heldPiece = this.piece;
+        setPiece(null);
+        List<Spot> allPossibleMoves =  Stream.of(board.getSpots())
+                .flatMap(Arrays::stream)
+                .filter(spot -> spot.getPiece() != null && spot.getPiece().getColor() != color)
+                .flatMap(spot -> spot.getPiece().getBeatenSpot(board, spot).stream())
+                .toList();
+        setPiece(heldPiece);
+        return allPossibleMoves.stream().anyMatch(spot -> spot.getPosition().getX()==x &&  spot.getPosition().getY()==y);
     }
 
-    private boolean isBeatenByQueen(PieceColor color, Board board) {
-        return isBeatenByDirection(color, board, -1, -1) || isBeatenByDirection(color, board, -1, 0)
-                || isBeatenByDirection(color, board, -1, 1) || isBeatenByDirection(color, board, 0, -1)
-                || isBeatenByDirection(color, board, 0, 1) || isBeatenByDirection(color, board, 1, -1)
-                || isBeatenByDirection(color, board, 1, 0) || isBeatenByDirection(color, board, 1, 1);
-    }
-
-    private boolean isBeatenByBishop(PieceColor color, Board board) {
-        return isBeatenByDirection(color, board, -1, -1) || isBeatenByDirection(color, board, -1, 1)
-                || isBeatenByDirection(color, board, 1, -1) || isBeatenByDirection(color, board, 1, 1);
-    }
-
-    private boolean isBeatenByRook(PieceColor color, Board board) {
-        return isBeatenByDirection(color, board, -1, 0) || isBeatenByDirection(color, board, 0, -1)
-                || isBeatenByDirection(color, board, 0, 1) || isBeatenByDirection(color, board, 1, 0);
-    }
-
-    private boolean isBeatenByKing(PieceColor color, Board board) {
-        int[][] kingMoves = {
-                {-1, -1}, {-1, 0}, {-1, 1},
-                {0, -1}, /* Obecne pole */ {0, 1},
-                {1, -1}, {1, 0}, {1, 1}
-        };
-
-        for (int[] move : kingMoves) {
-            int newX = position.getX() + move[0];
-            int newY = position.getY() + move[1];
-
-            if (isValidCoordinate(newX, newY) && isOpponentKing(board.getSpot(newX, newY), color)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private boolean isBeatenByKnight(PieceColor color, Board board) {
-        int[][] knightMoves = {
-                {-2, -1}, {-2, 1},
-                {-1, -2}, {-1, 2},
-                {1, -2}, {1, 2},
-                {2, -1}, {2, 1}
-        };
-
-        for (int[] move : knightMoves) {
-            int newX = position.getX() + move[0];
-            int newY = position.getY() + move[1];
-
-            if (isValidCoordinate(newX, newY) && isOpponentKnight(board.getSpot(newX, newY), color)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private boolean isBeatenByPawn(PieceColor color, Board board) {
-        int direction = (color == PieceColor.Black) ? 1 : -1;
-        int[][] pawnMoves = {
-                {direction, -1}, {direction, 1}
-        };
-
-        for (int[] move : pawnMoves) {
-            int newX = position.getX() + move[0];
-            int newY = position.getY() + move[1];
-
-            if (isValidCoordinate(newX, newY) && isOpponentPawn(board.getSpot(newX, newY), color)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private boolean isBeatenByDirection(PieceColor color, Board board, int rowChange, int colChange) {
-        int newX = position.getX() + rowChange;
-        int newY = position.getY() + colChange;
-
-        while (isValidCoordinate(newX, newY)) {
-            Spot currentSpot = board.getSpot(newX, newY);
-            if (!currentSpot.isEmpty()) {
-                if (currentSpot.getPiece().getColor() != color &&
-                        ((rowChange == 0 || colChange == 0) && (currentSpot.getPiece() instanceof Rook || currentSpot.getPiece() instanceof Queen) ||
-                                (Math.abs(rowChange) == Math.abs(colChange) && (currentSpot.getPiece() instanceof Bishop || currentSpot.getPiece() instanceof Queen)))) {
-                    return true;
-                }
-                break;
-            }
-            newX += rowChange;
-            newY += colChange;
-        }
-
-        return false;
-    }
-
-
-
-    private boolean isOpponentKing(Spot spot, PieceColor color) {
-        return spot.getPiece() instanceof King && spot.getPiece().getColor() != color;
-    }
-
-    private boolean isOpponentKnight(Spot spot, PieceColor color) {
-        return spot.getPiece() instanceof Knight && spot.getPiece().getColor() != color;
-    }
-
-    private boolean isOpponentPawn(Spot spot, PieceColor color) {
-        return spot.getPiece() instanceof Pawn && spot.getPiece().getColor() != color;
-    }
-
-    private boolean isValidCoordinate(int x, int y) {
-        return x >= 0 && x < Board.SIZE && y >= 0 && y < Board.SIZE;
-    }
 
 
     public boolean isEmpty() {
