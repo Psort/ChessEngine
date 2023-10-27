@@ -27,7 +27,7 @@ public class KnightMoves {
             int newY = y + move[1];
 
             // Check if new positions are within the board boundaries
-            if (isValidMove(newX, newY, board)) {
+            if (isValidMove(newX, newY)) {
                 Spot destinationSpot = board.getSpots()[newX][newY];
                 Piece piece = destinationSpot.getPiece();
 
@@ -41,7 +41,7 @@ public class KnightMoves {
         return possibleMoves;
     }
 
-    private boolean isValidMove(int x, int y, Board board) {
-        return x >= 0 && x < board.getSpots().length && y >= 0 && y < board.getSpots()[x].length;
+    private boolean isValidMove(int x, int y) {
+        return x >= 0 && x < Board.SIZE && y >= 0 && y < Board.SIZE;
     }
 }

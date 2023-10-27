@@ -9,18 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PawnMoves {
-    private final int startSpot;
 
-    public PawnMoves(int startSpot) {
-        this.startSpot = startSpot;
-    }
-
+    private int direction;
 
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
+        direction = (spot.getPiece().getColor() == PieceColor.White) ? -1 : 1;
+        PieceColor color = spot.getPiece().getColor();
         List<Spot> possibleMoves = new ArrayList<>();
+        int startSpot = color == PieceColor.White ? 6:1;
         int x = spot.getPosition().getX();
         int y = spot.getPosition().getY();
-        int direction = (spot.getPiece().getColor() == PieceColor.White) ? -1 : 1;
 
         // Standard pawn move one square forward
         Spot forwardOne = board.getSpots()[x + direction][y];
@@ -37,40 +35,51 @@ public class PawnMoves {
         }
 
         // Pawn captures
-        if (isValidAttack(x + direction, y - 1, board)) {
+        if (isValidAttack(x + direction, y - 1, board,color)) {
             Spot diagonalLeft = board.getSpots()[x + direction][y - 1];
             possibleMoves.add(diagonalLeft);
         }
-        if (isValidAttack(x + direction, y + 1, board)) {
+        if (isValidAttack(x + direction, y + 1, board,color)) {
             Spot diagonalRight = board.getSpots()[x + direction][y + 1];
             possibleMoves.add(diagonalRight);
         }
-
-//        // Check for en passant capture
-//        if (isValidEnPassant(x+ direction, y - 1, board,direction)) {
-//            Spot enPassantLeft = board.getSpots()[x+ direction][y - 1];
-//            possibleMoves.add(enPassantLeft);
-//        }
-//        if (isValidEnPassant(x+ direction, y + 1, board,direction)) {
-//            Spot enPassantRight = board.getSpots()[x+ direction][y + 1];
-//            possibleMoves.add(enPassantRight);
-//        }
-
         return possibleMoves;
     }
+    public List<Spot> getBeatenSpot(Board board, Spot spot) {
+        direction = (spot.getPiece().getColor() == PieceColor.White) ? -1 : 1;
+        List<Spot> beatenSpot= new ArrayList<>();
+        int x = spot.getPosition().getX() + direction;
+        int y = spot.getPosition().getY();
+        if (isBeatenSpot(x, y - 1)){
+            Spot diagonalLeft = board.getSpots()[x][y - 1];
+            beatenSpot.add(diagonalLeft);
+        }
+        if (isBeatenSpot(x , y + 1)){
+            Spot diagonalRight = board.getSpots()[x][y + 1];
+            beatenSpot.add(diagonalRight);
+        }
+        return beatenSpot;
+    }
 
-//    private boolean isValidEnPassant(int x, int y, Board board,int direction) {
-//        return x >= 0 && x < Board.SIZE && y >= 0 && y < Board.SIZE &&
-//                board.getSpots()[x- direction][y].getPiece() instanceof Pawn &&
-//                ((Pawn) board.getSpots()[x- direction][y].getPiece()).isFirstMove() &&
-//                board.getSpots()[x][y].isEmpty();
-//    }
 
     private boolean isValidMove(int x, int y, Board board) {
         return x >= 0 && x < Board.SIZE && y >= 0 && y < Board.SIZE && board.getSpots()[x][y].isEmpty();
     }
 
-    private boolean isValidAttack(int x, int y, Board board) {
-        return x >= 0 && x < Board.SIZE && y >= 0 && y < Board.SIZE && !board.getSpots()[x][y].isEmpty();
+    private boolean isValidAttack(int x, int y, Board board,PieceColor color) {
+        return x>= 0 &&
+                x < Board.SIZE &&
+                y >= 0 &&
+                y < Board.SIZE &&
+                !board.getSpots()[x][y].isEmpty() &&
+                board.getSpots()[x][y].getPiece().getColor() != color;
     }
+    private boolean isBeatenSpot(int x, int y) {
+        return x >= 0 &&
+                x < Board.SIZE &&
+                y >= 0 &&
+                y < Board.SIZE;
+    }
+
+
 }

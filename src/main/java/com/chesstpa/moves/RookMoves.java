@@ -26,7 +26,7 @@ public class RookMoves {
         PieceColor pieceColor = spot.getPiece().getColor();
 
         // Check downward moves
-        for (int i = x + 1; i < board.getSpots().length; i++) {
+        for (int i = x + 1; i <Board.SIZE; i++) {
             if (checkAndUpdateMove(board, possibleMoves,pieceColor, i, y)) {
                 break;
             }
@@ -49,7 +49,7 @@ public class RookMoves {
         PieceColor pieceColor = spot.getPiece().getColor();
 
         // Check right moves
-        for (int i = y + 1; i < board.getSpots()[x].length; i++) {
+        for (int i = y + 1; i < Board.SIZE; i++) {
             if (checkAndUpdateMove(board, possibleMoves,pieceColor, x, i)) {
                 break;
             }

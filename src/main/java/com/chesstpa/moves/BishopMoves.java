@@ -16,7 +16,7 @@ public class BishopMoves {
         int y = spot.getPosition().getY();
 
         // Check moves to the down-right
-        for (int i = 1; x + i < board.getSpots().length && y + i < board.getSpots()[x + i].length; i++) {
+        for (int i = 1; x + i < Board.SIZE && y + i <Board.SIZE; i++) {
             if (checkAndUpdateMove(board, possibleMoves,pieceColor, x + i, y + i)) {
                 break;
             }
@@ -30,14 +30,14 @@ public class BishopMoves {
         }
 
         // Check moves to the down-left8
-        for (int i = 1; x + i < board.getSpots().length && y - i >= 0; i++) {
+        for (int i = 1; x + i < Board.SIZE && y - i >= 0; i++) {
             if (checkAndUpdateMove(board, possibleMoves,pieceColor, x + i, y - i)) {
                 break;
             }
         }
 
         // Check moves to the up-right
-        for (int i = 1; x - i >= 0 && y + i < board.getSpots()[x - i].length; i++) {
+        for (int i = 1; x - i >= 0 && y + i < Board.SIZE; i++) {
             if (checkAndUpdateMove(board, possibleMoves,pieceColor, x - i, y + i)) {
                 break;
             }
