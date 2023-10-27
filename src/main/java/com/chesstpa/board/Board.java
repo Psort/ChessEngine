@@ -12,8 +12,8 @@ public class Board {
     public final static int SIZE = 8;
     private Spot[][] spots = new Spot[SIZE][SIZE];
 
-    private Spot whiteKingSpot = new Spot(new Position(7,4), new King(PieceColor.White));
-    private Spot blackKingSpot = new Spot(new Position(0,4), new King(PieceColor.Black));
+    private Spot whiteKingSpot = null ;
+    private Spot blackKingSpot = null;
     public Board() {
         initializeEmptyBoard();
     }
@@ -52,48 +52,24 @@ public class Board {
     public boolean kingIsCheck(PieceColor color){
         return getKingSpot(color).isBeaten(this, color);
     }
-    public boolean isCheckMate(PieceColor color){
-        List<Spot> possibleMovesForAllPiece = getPossibleMovesForAllPiece(color);
-        return  kingIsCheck(color) && possibleMovesForAllPiece.isEmpty();
-    }
-    public boolean isPat(PieceColor color){
-        List<Spot> possibleMovesForAllPiece = getPossibleMovesForAllPiece(color);
-        long numberOfPiece = Arrays.stream(spots)
-                .flatMap(Arrays::stream)
-                .filter(spot -> spot.getPiece() != null )
-                .count();
-
-        return (!kingIsCheck(color) && possibleMovesForAllPiece.isEmpty()) || numberOfPiece == 2;
-    }
-
-    public void swapSpots(Spot currentSpot, Spot nextSpot){
-        this.getSpots()[nextSpot.getPosition().getX()][nextSpot.getPosition().getY()].setPiece(currentSpot.getPiece());
-        this.getSpots()[currentSpot.getPosition().getX()][currentSpot.getPosition().getY()].setPiece(null);
-    }
-    private List<Spot> getPossibleMovesForAllPiece(PieceColor color){
-        return Stream.of(spots)
-                .flatMap(Arrays::stream)
-                .filter(spot -> spot.getPiece() != null && spot.getPiece().getColor() == color)
-                .flatMap(spot -> spot.getPiece().getPossibleMoves(this, spot).stream())
-                .toList();
-    }
-
-    public void setBoardState(String boardState) {
+    public void setBoardState(String boardState, String whiteCastle, String blackCastle) {
         initializeEmptyBoard();
         String[] strings = boardState.split("/");
-        for(int i = 0; i< SIZE;i++){
+        for (int i = 0; i < SIZE; i++) {
             int j = 0;
-
-            for (char c : strings[i].toCharArray()){
-                if (Character.isDigit(c)){
-                    int emptySpace = Character.getNumericValue(c);
-                    j+=emptySpace;
-                }else {
+            for (char c : strings[i].toCharArray()) {
+                if (Character.isDigit(c)) {
+                    j += Character.getNumericValue(c);
+                } else {
                     Piece piece = DataConvert.createPieceFromSymbol(c);
-                    if(piece != null){
-                        spots[i][j].setPiece(piece);
+                    spots[i][j++].setPiece(piece);
+                    if (piece instanceof King) {
+                        King king = (King) piece;
+                        boolean isWhite = piece.getColor() == PieceColor.White;
+                        king.setShortCastle(isWhite ? whiteCastle.contains("K") : blackCastle.contains("k"));
+                        king.setLongCastle(isWhite ? whiteCastle.contains("Q") : blackCastle.contains("q"));
+                        setKingSpot(spots[i][j - 1]);
                     }
-                    j++;
                 }
             }
         }
