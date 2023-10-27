@@ -1,7 +1,6 @@
 package pawn;
 
-import com.chesstpa.DataConvert;
-import com.chesstpa.Game;
+import com.chesstpa.game.Game;
 import com.chesstpa.board.Board;
 import com.chesstpa.board.Spot;
 import com.chesstpa.pieces.*;
@@ -15,9 +14,26 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PawnTest {
     @Test
+    void moveTest() {
+       Game game = new Game();
+       Board board = new Board();
+       board.setBoardState("rnbq1bnr/pp1Q1ppp/3p1k2/4N3/3P2P1/8/PPP1PP1P/RNB1KB1R","K","kq");
+//        System.out.println(game.getPossibleMovesForPosition("rnbq1bnr/pp1Q1ppp/3p1k2/4N3/3P2P1/8/PPP1PP1P/RNB1KB1R","f3"));   ///String [g4,g4] // is checkamet= true///// false {is check ,is pat , moves}
+        board.printBoard();
+        King king = (King) board.getSpot(7,4).getPiece();
+        System.out.println(king.hasLongCastle());
+        System.out.println(king.hasShortCastle());
+    }
+    @Test
     void firstMoveTest() {
         Board board = new Board();
+        board.getSpot(0,4).setPiece(new King(PieceColor.Black));
+        board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(6,0).setPiece(new Pawn(PieceColor.White));
+
+        board.setKingSpot(board.getSpot(7,4));
+        board.setKingSpot(board.getSpot(0,4));
+
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(5,0),board.getSpot(4,0)));
         Spot chekedSpot =board.getSpot(6,0);
         List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
@@ -26,7 +42,12 @@ public class PawnTest {
     @Test
     void secondMoveTest() {
         Board board = new Board();
+        board.getSpot(0,4).setPiece(new King(PieceColor.Black));
+        board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(6,0).setPiece(new Pawn(PieceColor.White));
+
+        board.setKingSpot(board.getSpot(7,4));
+        board.setKingSpot(board.getSpot(0,4));
 
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(5,0),board.getSpot(4,0)));
         Spot chekedSpot =board.getSpot(6,0);
@@ -36,7 +57,12 @@ public class PawnTest {
     @Test
     void notSecondMoveTest() {
         Board board = new Board();
+        board.getSpot(0,4).setPiece(new King(PieceColor.Black));
+        board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(5,0).setPiece(new Pawn(PieceColor.White));
+
+        board.setKingSpot(board.getSpot(7,4));
+        board.setKingSpot(board.getSpot(0,4));
 
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(4,0)));
         Spot chekedSpot =board.getSpot(5,0);
@@ -46,20 +72,20 @@ public class PawnTest {
     @Test
     void blockPawnTest() {
         Board board = new Board();
+        board.getSpot(0,4).setPiece(new King(PieceColor.Black));
+        board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(6,0).setPiece(new Pawn(PieceColor.White));
         board.getSpot(5,0).setPiece(new Pawn(PieceColor.Black));
 
+        board.setKingSpot(board.getSpot(7,4));
+        board.setKingSpot(board.getSpot(0,4));
         List<Spot> correctPositions = new ArrayList<>();
         Spot chekedSpot =board.getSpot(6,0);
+
         List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
         assertEquals(correctPositions, takenPositions);
     }
-    @Test
-    void TEst() {
-        Game game = new Game();
-        System.out.println(game.getPossibleMovesForPosition("8/8/1n7/8/8/8/8/8","b3"));
-        game.printBoard();
-    }
+
 //    @Test
 //    void enPassantTest() {
 //        Board board = new Board();
