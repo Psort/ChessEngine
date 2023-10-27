@@ -7,7 +7,7 @@ import com.chesstpa.moves.PawnMoves;
 import java.util.List;
 
 public class Pawn extends Piece {
-    private  final PawnMoves pawnMoves = new PawnMoves(getColor() == PieceColor.White ? 6:1);
+    private  final PawnMoves pawnMoves = new PawnMoves();
 
 
     public Pawn(PieceColor color) {
@@ -19,6 +19,11 @@ public class Pawn extends Piece {
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = pawnMoves.getPossibleMoves(board,spot);
         return filterPositionByKingCheck(board,possibleMoves);
+    }
+
+    @Override
+    public List<Spot> getBeatenSpot(Board board, Spot spot) {
+        return pawnMoves.getBeatenSpot(board,spot);
     }
 
 

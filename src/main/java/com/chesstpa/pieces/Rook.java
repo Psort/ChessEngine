@@ -11,27 +11,20 @@ import java.util.stream.Stream;
 public class Rook extends Piece  {
     private final RookMoves rookMoves = new RookMoves();
 
-    private boolean hasMoved = false;
     public Rook(PieceColor color) {
         super(color);
     }
 
     @Override
-    public void move(Board board,Spot currentSpot,Spot nextSpot) {
-        if(!hasMoved){
-            hasMoved = true;
-        }
-        board.swapSpots(currentSpot, nextSpot);
-    }
-
-    @Override
-    public List<Spot> getPossibleMoves(Board board,Spot spot){
+    public List<Spot> getPossibleMoves(Board board, Spot spot){
         List<Spot> possibleMoves = rookMoves.getPossibleMoves(board,spot);
         return filterPositionByKingCheck(board,possibleMoves);
     }
 
-
-    public boolean isHasMoved() {
-        return hasMoved;
+    @Override
+    public List<Spot> getBeatenSpot(Board board, Spot spot) {
+        return rookMoves.getPossibleMoves(board,spot);
     }
+
+
 }

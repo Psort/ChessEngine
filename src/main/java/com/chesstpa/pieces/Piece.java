@@ -17,11 +17,9 @@ public abstract class Piece {
     public PieceColor getColor() {
         return color;
     }
-    public void move(Board board,Spot currentSpot,Spot nextSpot){
-        board.swapSpots(currentSpot, nextSpot);
-    };
 
     public abstract List<Spot> getPossibleMoves(Board board, Spot spot);
+    public abstract List<Spot> getBeatenSpot(Board board, Spot spot);
 
     protected List<Spot> filterPositionByKingCheck(Board board,List<Spot> possibleMoves){
         if (board.kingIsCheck(color)) {
