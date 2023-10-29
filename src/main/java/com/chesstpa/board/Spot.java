@@ -39,8 +39,6 @@ public class Spot {
         return allPossibleMoves.stream().anyMatch(spot -> spot.getPosition().getX()==x &&  spot.getPosition().getY()==y);
     }
 
-
-
     public boolean isEmpty() {
         return piece ==null;
     }
@@ -51,5 +49,14 @@ public class Spot {
         boolean itSafe = !kingSpot.isBeaten(board,color);
         this.piece = null;
         return !itSafe;
+    }
+    public boolean revealsKing(Board board, PieceColor color, Piece piece, Spot previousSpot){
+        Spot kingSpot = board.getKingSpot(color);
+        Piece enemyPiece = this.getPiece();
+        this.setPiece(piece);
+        previousSpot.setPiece(null);
+        boolean revealsKing = kingSpot.isBeaten(board, color);
+        this.setPiece(enemyPiece);
+        return revealsKing;
     }
 }
