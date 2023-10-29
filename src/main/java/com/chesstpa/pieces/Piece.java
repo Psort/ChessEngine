@@ -27,4 +27,12 @@ public abstract class Piece {
         }
         return possibleMoves;
     }
+    protected List<Spot> filterByReveal(Board board,List<Spot> possibleMoves, Spot spot){
+        possibleMoves.removeIf(move -> move.revealsKing(board, color,this, spot));
+        return possibleMoves;
+    }
+    protected List<Spot> filterMoves(Board board,List<Spot> possibleMoves, Spot spot){
+        List<Spot> moves = filterByReveal(board, possibleMoves, spot);
+        return filterPositionByKingCheck(board, moves);
+    }
 }
