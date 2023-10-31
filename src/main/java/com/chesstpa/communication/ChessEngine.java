@@ -19,6 +19,7 @@ public class ChessEngine implements CommunicationInterface{
             return "";
         }
         game.setGameState(boardState,whiteCastle,blackCastle);
+        game.getBoard().printBoard();
         Position transformPosition = DataConvert.transformPositionToIntList(piecePosition);
         int x = transformPosition.getX();
         int y = transformPosition.getY();
@@ -27,7 +28,7 @@ public class ChessEngine implements CommunicationInterface{
         if (spot.getPiece() == null) {
             return "";
         }
-        return spot.getPiece().getBeatenSpot(game.getBoard(), spot)
+        return spot.getPiece().getPossibleMoves(game.getBoard(), spot)
                 .stream()
                 .map(s -> DataConvert.transformIntListToPosition(s.getPosition().getX(), s.getPosition().getY()))
                 .collect(Collectors.joining("/"));
