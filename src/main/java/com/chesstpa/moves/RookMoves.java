@@ -13,13 +13,6 @@ import java.util.stream.Stream;
 public class RookMoves {
 
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
-        return Stream.concat(
-                getVerticalPossibleMoves(board,spot).stream(),
-                getHorizontalPossibleMoves(board,spot).stream()
-        ).collect(Collectors.toList());
-    }
-
-    public List<Spot> getVerticalPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
         int x = spot.getPosition().getX();
         int y = spot.getPosition().getY();
@@ -38,15 +31,6 @@ public class RookMoves {
                 break;
             }
         }
-
-        return possibleMoves;
-    }
-
-    public List<Spot> getHorizontalPossibleMoves(Board board, Spot spot) {
-        List<Spot> possibleMoves = new ArrayList<>();
-        int x = spot.getPosition().getX();
-        int y = spot.getPosition().getY();
-        PieceColor pieceColor = spot.getPiece().getColor();
 
         // Check right moves
         for (int i = y + 1; i < Board.SIZE; i++) {

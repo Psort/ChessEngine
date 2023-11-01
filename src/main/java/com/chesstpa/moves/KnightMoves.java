@@ -3,24 +3,19 @@ package com.chesstpa.moves;
 import com.chesstpa.board.Board;
 import com.chesstpa.board.Spot;
 import com.chesstpa.pieces.Piece;
+import com.chesstpa.pieces.PieceType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class KnightMoves {
+    private final int[][] knightMoves = PieceType.KNIGHT.getMoves();
 
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
 
         int x = spot.getPosition().getX();
         int y = spot.getPosition().getY();
-
-        int[][] knightMoves = {
-                {-2, -1}, {-2, 1}, // Moves upper left and upper right
-                {-1, -2}, {-1, 2}, // Moves left upper and right upper
-                {1, -2}, {1, 2},   // Moves left lower and right lower
-                {2, -1}, {2, 1}    // Moves lower left and lower right
-        };
 
         for (int[] move : knightMoves) {
             int newX = x + move[0];

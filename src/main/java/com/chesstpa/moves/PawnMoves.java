@@ -10,10 +10,8 @@ import java.util.List;
 
 public class PawnMoves {
 
-    private int direction;
-
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
-        direction = (spot.getPiece().getColor() == PieceColor.White) ? -1 : 1;
+        int direction = (spot.getPiece().getColor() == PieceColor.White) ? -1 : 1;
         PieceColor color = spot.getPiece().getColor();
         List<Spot> possibleMoves = new ArrayList<>();
         int startSpot = color == PieceColor.White ? 6:1;
@@ -45,23 +43,6 @@ public class PawnMoves {
         }
         return possibleMoves;
     }
-    public List<Spot> getBeatenSpot(Board board, Spot spot) {
-        direction = (spot.getPiece().getColor() == PieceColor.White) ? -1 : 1;
-        List<Spot> beatenSpot= new ArrayList<>();
-        int x = spot.getPosition().getX() + direction;
-        int y = spot.getPosition().getY();
-        if (isBeatenSpot(x, y - 1)){
-            Spot diagonalLeft = board.getSpots()[x][y - 1];
-            beatenSpot.add(diagonalLeft);
-        }
-        if (isBeatenSpot(x , y + 1)){
-            Spot diagonalRight = board.getSpots()[x][y + 1];
-            beatenSpot.add(diagonalRight);
-        }
-        return beatenSpot;
-    }
-
-
     private boolean isValidMove(int x, int y, Board board) {
         return x >= 0 && x < Board.SIZE && y >= 0 && y < Board.SIZE && board.getSpots()[x][y].isEmpty();
     }
@@ -74,12 +55,4 @@ public class PawnMoves {
                 !board.getSpots()[x][y].isEmpty() &&
                 board.getSpots()[x][y].getPiece().getColor() != color;
     }
-    private boolean isBeatenSpot(int x, int y) {
-        return x >= 0 &&
-                x < Board.SIZE &&
-                y >= 0 &&
-                y < Board.SIZE;
-    }
-
-
 }

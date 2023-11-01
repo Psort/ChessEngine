@@ -4,16 +4,13 @@ import com.chesstpa.board.Board;
 import com.chesstpa.board.Spot;
 import com.chesstpa.pieces.King;
 import com.chesstpa.pieces.PieceColor;
+import com.chesstpa.pieces.PieceType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class KingMoves {
-    private final int[][] moves = {
-            {-1, -1}, {-1, 0}, {-1, 1}, //Moves up
-            {0, -1}, /* Current field */ {0, 1}, // Moves left and right
-            {1, -1}, {1, 0}, {1, 1} //Moves down
-    };
+    private final int[][] moves = PieceType.KING.getMoves();
 
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = new ArrayList<>();
@@ -25,23 +22,6 @@ public class KingMoves {
         addCastlingMoves(board, spot, possibleMoves);
 
         return possibleMoves;
-    }
-    public List<Spot> getBeatenSpot(Board board, Spot spot) {
-        List<Spot> beatenSpots = new ArrayList<>();
-        for (int[] move : moves) {
-            int newX = spot.getPosition().getX() + move[0];
-            int newY = spot.getPosition().getY() + move[1];
-            if (isBeatenSpots(newX, newY, board, spot.getPiece().getColor())) {
-                beatenSpots.add(board.getSpots()[newX][newY]);
-            }
-        }
-        return beatenSpots;
-    }
-
-    private boolean isBeatenSpots(int x, int y, Board board, PieceColor color) {
-        return x >= 0 && x < board.getSpots().length && y >= 0 && y < board.getSpots()[x].length
-                && (board.getSpots()[x][y].isEmpty()
-                || board.getSpots()[x][y].getPiece().getColor() != color);
     }
 
     private void addStandardKingMoves(Board board, Spot spot, List<Spot> possibleMoves) {
