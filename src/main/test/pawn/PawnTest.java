@@ -1,9 +1,11 @@
 package pawn;
 
-import com.chesstpa.game.Game;
+
 import com.chesstpa.board.Board;
 import com.chesstpa.board.Spot;
+import com.chesstpa.communication.ChessEngine;
 import com.chesstpa.pieces.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,12 +15,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PawnTest {
+    private Board board;
+    @BeforeEach
+    public void setUp(){
+        board = new Board();
+        board.getSpot(0,4).setPiece(new King(PieceColor.Black));
+        board.getSpot(7,4).setPiece(new King(PieceColor.White));
+        board.setKingSpot(board.getSpot(7,4));
+        board.setKingSpot(board.getSpot(0,4));
+    }
     @Test
     void moveTest() {
-       Game game = new Game();
+        ChessEngine chessEngine = new ChessEngine();
        Board board = new Board();
-       board.setBoardState("rnbq1bnr/pp1Q1ppp/3p1k2/4N3/3P2P1/8/PPP1PP1P/RNB1KB1R","K","kq");
-//        System.out.println(game.getPossibleMovesForPosition("rnbq1bnr/pp1Q1ppp/3p1k2/4N3/3P2P1/8/PPP1PP1P/RNB1KB1R","f3"));   ///String [g4,g4] // is checkamet= true///// false {is check ,is pat , moves}
+       board.setBoardState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR","K","kq");
+        System.out.println(chessEngine.getPossibleMovesForPosition("rnbqkbnr/pppppppp/8/8/8/4P3/PPPP1PPP/RNBQKBNR","e6","",""));   ///String [g4,g4] // is checkamet= true///// false {is check ,is pat , moves}
         board.printBoard();
         King king = (King) board.getSpot(7,4).getPiece();
         System.out.println(king.hasLongCastle());
@@ -26,14 +37,7 @@ public class PawnTest {
     }
     @Test
     void firstMoveTest() {
-        Board board = new Board();
-        board.getSpot(0,4).setPiece(new King(PieceColor.Black));
-        board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(6,0).setPiece(new Pawn(PieceColor.White));
-
-        board.setKingSpot(board.getSpot(7,4));
-        board.setKingSpot(board.getSpot(0,4));
-
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(5,0),board.getSpot(4,0)));
         Spot chekedSpot =board.getSpot(6,0);
         List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
@@ -41,14 +45,7 @@ public class PawnTest {
     }
     @Test
     void secondMoveTest() {
-        Board board = new Board();
-        board.getSpot(0,4).setPiece(new King(PieceColor.Black));
-        board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(6,0).setPiece(new Pawn(PieceColor.White));
-
-        board.setKingSpot(board.getSpot(7,4));
-        board.setKingSpot(board.getSpot(0,4));
-
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(5,0),board.getSpot(4,0)));
         Spot chekedSpot =board.getSpot(6,0);
         List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
@@ -56,14 +53,7 @@ public class PawnTest {
     }
     @Test
     void notSecondMoveTest() {
-        Board board = new Board();
-        board.getSpot(0,4).setPiece(new King(PieceColor.Black));
-        board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(5,0).setPiece(new Pawn(PieceColor.White));
-
-        board.setKingSpot(board.getSpot(7,4));
-        board.setKingSpot(board.getSpot(0,4));
-
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(4,0)));
         Spot chekedSpot =board.getSpot(5,0);
         List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
@@ -71,16 +61,10 @@ public class PawnTest {
     }
     @Test
     void blockPawnTest() {
-        Board board = new Board();
-        board.getSpot(0,4).setPiece(new King(PieceColor.Black));
-        board.getSpot(7,4).setPiece(new King(PieceColor.White));
-        board.getSpot(6,0).setPiece(new Pawn(PieceColor.White));
-        board.getSpot(5,0).setPiece(new Pawn(PieceColor.Black));
-
-        board.setKingSpot(board.getSpot(7,4));
-        board.setKingSpot(board.getSpot(0,4));
+        board.getSpot(6,7).setPiece(new Pawn(PieceColor.White));
+        board.getSpot(5,7).setPiece(new Pawn(PieceColor.Black));
         List<Spot> correctPositions = new ArrayList<>();
-        Spot chekedSpot =board.getSpot(6,0);
+        Spot chekedSpot =board.getSpot(6,7);
 
         List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
         assertEquals(correctPositions, takenPositions);

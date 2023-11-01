@@ -3,6 +3,7 @@ package king;
 import com.chesstpa.board.Board;
 import com.chesstpa.board.Spot;
 import com.chesstpa.pieces.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,9 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class KingTest {
+    private Board board;
+    @BeforeEach
+    public void setUp(){
+        board = new Board();
+    }
     @Test
     void cantMoveTest() {
-        Board board = new Board();
         board.getSpot(0,3).setPiece(new Queen(PieceColor.Black));
         board.getSpot(0,4).setPiece(new King(PieceColor.Black));
         board.getSpot(0,5).setPiece(new Bishop(PieceColor.Black));
@@ -35,7 +40,6 @@ public class KingTest {
 
     @Test
     void cantMoveByAttackTest() {
-        Board board = new Board();
         board.getSpot(0,3).setPiece(new Queen(PieceColor.Black));
         board.getSpot(0,4).setPiece(new King(PieceColor.Black));
         board.getSpot(0,5).setPiece(new Bishop(PieceColor.Black));
@@ -59,7 +63,6 @@ public class KingTest {
     }
     @Test
     void cantBeatBySpotIsUnderAttackTest() {
-        Board board = new Board();
         board.getSpot(0,3).setPiece(new Queen(PieceColor.Black));
         board.getSpot(0,4).setPiece(new King(PieceColor.Black));
         board.getSpot(0,5).setPiece(new Bishop(PieceColor.Black));
@@ -81,7 +84,6 @@ public class KingTest {
     }
     @Test
     void canCastleKingSideTest() {
-        Board board = new Board();
         board.getSpot(7,3).setPiece(new Queen(PieceColor.White));
         board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(7,7).setPiece(new Rook(PieceColor.White));
@@ -99,7 +101,6 @@ public class KingTest {
     }
     @Test
     void canCastleQueenSideTest() {
-        Board board = new Board();
         board.getSpot(7,5).setPiece(new Bishop(PieceColor.White));
         board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(7,0).setPiece(new Rook(PieceColor.White));
@@ -115,7 +116,6 @@ public class KingTest {
     }
     @Test
     void cantCastleQueenSideTest() {
-        Board board = new Board();
         board.getSpot(7,5).setPiece(new Bishop(PieceColor.White));
         board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(7,0).setPiece(new Rook(PieceColor.White));
@@ -132,7 +132,6 @@ public class KingTest {
     }
     @Test
     void cantCastleKingSideTest() {
-        Board board = new Board();
         board.getSpot(5,5).setPiece( new Knight(PieceColor.Black));
         board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(7,3).setPiece(new Queen(PieceColor.White));
