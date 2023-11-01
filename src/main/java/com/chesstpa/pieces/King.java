@@ -24,11 +24,6 @@ public class King extends Piece {
         return kingMoves.getPossibleMoves(board,spot);
     }
 
-    @Override
-    public List<Spot> getBeatenSpot(Board board, Spot spot) {
-        return kingMoves.getBeatenSpot(board,spot);
-    }
-
     public boolean hasShortCastle() {
         return shortCastle;
     }

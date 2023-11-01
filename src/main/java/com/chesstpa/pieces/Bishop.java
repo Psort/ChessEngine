@@ -17,10 +17,4 @@ public class Bishop extends Piece{
         List<Spot> possibleMoves = bishopMoves.getPossibleMoves(board,spot);
         return filterMoves(board,possibleMoves, spot);
     }
-
-    @Override
-    public List<Spot> getBeatenSpot(Board board, Spot spot) {
-        return bishopMoves.getPossibleMoves(board,spot);
-    }
-
 }

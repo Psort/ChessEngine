@@ -20,11 +20,4 @@ public class Pawn extends Piece {
         List<Spot> possibleMoves = pawnMoves.getPossibleMoves(board,spot);
         return filterMoves(board,possibleMoves, spot);
     }
-
-    @Override
-    public List<Spot> getBeatenSpot(Board board, Spot spot) {
-        return pawnMoves.getBeatenSpot(board,spot);
-    }
-
-
 }

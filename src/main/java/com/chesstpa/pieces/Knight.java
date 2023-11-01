@@ -18,10 +18,4 @@ public class Knight extends Piece{
         List<Spot> possibleMoves = knightMoves.getPossibleMoves(board, spot);
         return filterMoves(board,possibleMoves, spot);
     }
-
-    @Override
-    public List<Spot> getBeatenSpot(Board board, Spot spot) {
-        return knightMoves.getPossibleMoves(board, spot);
-    }
-
 }

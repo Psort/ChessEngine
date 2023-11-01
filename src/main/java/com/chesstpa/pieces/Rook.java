@@ -20,11 +20,4 @@ public class Rook extends Piece  {
         List<Spot> possibleMoves = rookMoves.getPossibleMoves(board,spot);
         return filterMoves(board,possibleMoves, spot);
     }
-
-    @Override
-    public List<Spot> getBeatenSpot(Board board, Spot spot) {
-        return rookMoves.getPossibleMoves(board,spot);
-    }
-
-
 }

@@ -25,13 +25,4 @@ public class Queen extends Piece {
                 .collect(Collectors.toList());
         return filterMoves(board,possibleMoves, spot);
     }
-
-    @Override
-    public List<Spot> getBeatenSpot(Board board, Spot spot) {
-        List<Spot> rookPossibleMoves = rookMoves.getPossibleMoves(board,spot);
-        List<Spot> diagonalMoves = bishopMoves.getPossibleMoves(board,spot);
-        return Stream.concat(rookPossibleMoves.stream(), diagonalMoves.stream())
-                .collect(Collectors.toList());
-    }
-
 }
