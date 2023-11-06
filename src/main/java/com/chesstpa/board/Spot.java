@@ -21,10 +21,10 @@ public class Spot {
     }
 
     public boolean isBeaten(Board board,PieceColor color) {
-        PieceType pawnClass = (color == PieceColor.White)?PieceType.WHITEPAWN:PieceType.BLACKPAWN;
+        PieceType pawnColor = (color == PieceColor.White)?PieceType.WHITEPAWN:PieceType.BLACKPAWN;
 
         return isBeaten(color,board,PieceType.KNIGHT) ||isBeaten(color,board,PieceType.KING)
-                || isBeaten(color,board,pawnClass) || isBeaten(color, board);
+                || isBeaten(color,board,pawnColor) || isBeaten(color, board);
     }
 
     private boolean isBeaten(PieceColor color, Board board) {
