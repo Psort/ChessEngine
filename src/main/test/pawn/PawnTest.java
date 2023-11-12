@@ -25,17 +25,6 @@ public class PawnTest {
         board.setKingSpot(board.getSpot(0,4));
     }
     @Test
-    void moveTest() {
-        ChessEngine chessEngine = new ChessEngine();
-       Board board = new Board();
-       board.setBoardState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR","K","kq");
-        System.out.println(chessEngine.getPossibleMovesForPosition("rnbqkbnr/pppppppp/8/8/8/4P3/PPPP1PPP/RNBQKBNR","e6","",""));   ///String [g4,g4] // is checkamet= true///// false {is check ,is pat , moves}
-        board.printBoard();
-        King king = (King) board.getSpot(7,4).getPiece();
-        System.out.println(king.hasLongCastle());
-        System.out.println(king.hasShortCastle());
-    }
-    @Test
     void firstMoveTest() {
         board.getSpot(6,0).setPiece(new Pawn(PieceColor.White));
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(5,0),board.getSpot(4,0)));

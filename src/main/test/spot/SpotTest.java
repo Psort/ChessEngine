@@ -108,7 +108,6 @@ public class SpotTest {
         board.getSpot(0, 0).setPiece(new Bishop(PieceColor.White));
 
         board.getSpot(2, 2).setPiece(new Bishop(PieceColor.Black));
-        board.printBoard();
         assertTrue(board.getSpot(0,0).isBeaten(board, PieceColor.White));
 
         board.getSpot(2, 2).setPiece(null);
@@ -131,7 +130,7 @@ public class SpotTest {
         board.getSpot(7, 7).setPiece(new Queen(PieceColor.Black));
         assertTrue(board.getSpots()[0][0].isBeaten(board, PieceColor.White));
 
-        board.getSpot(0, 7).setPiece(null);
+        board.getSpot(7, 7).setPiece(null);
         board.getSpot(7, 0).setPiece(new Queen(PieceColor.Black));
         assertTrue(board.getSpots()[0][0].isBeaten(board, PieceColor.White));
 
@@ -142,7 +141,6 @@ public class SpotTest {
 
         board.getSpot(7, 0).setPiece(null);
         board.getSpot(0, 7).setPiece(new Queen(PieceColor.Black));
-
         assertTrue(board.getSpots()[7][7].isBeaten(board, PieceColor.White));
     }
     @Test
@@ -150,7 +148,6 @@ public class SpotTest {
         board.getSpot(1, 1).setPiece(new Pawn(PieceColor.Black));
 
         board.getSpot(2, 2).setPiece(new Pawn(PieceColor.White));
-        board.printBoard();
         assertTrue(board.getSpots()[2][2].isBeaten(board, PieceColor.White));
         assertTrue(board.getSpots()[1][1].isBeaten(board, PieceColor.Black));
 

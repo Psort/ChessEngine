@@ -28,7 +28,6 @@ public class RookTest {
         board.getSpot(0,0).setPiece(new Rook(PieceColor.White));
         board.getSpot(0,1).setPiece(new Pawn(PieceColor.White));
         board.getSpot(1,0).setPiece(new Pawn(PieceColor.White));
-        board.printBoard();
         List<Spot> correctPositions = new ArrayList<>();
         Spot chekedSpot =board.getSpot(0,0);
         List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);

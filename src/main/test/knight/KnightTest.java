@@ -28,7 +28,6 @@ public class KnightTest {
         board.getSpot(0,0).setPiece(new Knight(PieceColor.White));
         board.getSpot(1,2).setPiece(new Pawn(PieceColor.White));
         board.getSpot(2,1).setPiece(new Pawn(PieceColor.White));
-        board.printBoard();
         List<Spot> correctPositions = new ArrayList<>();
         Spot checkedSpot = board.getSpot(0,0);
         List<Spot> takenPositions = checkedSpot.getPiece().getPossibleMoves(board, checkedSpot);
@@ -39,7 +38,6 @@ public class KnightTest {
     @Test
     void moveTest() {
         board.getSpot(0,0).setPiece(new Knight(PieceColor.White));
-        board.printBoard();
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(1,2), board.getSpot(2,1)));
         Spot checkedSpot = board.getSpot(0,0);
         List<Spot> takenPositions = checkedSpot.getPiece().getPossibleMoves(board, checkedSpot);
@@ -52,7 +50,6 @@ public class KnightTest {
         board.getSpot(0,0).setPiece(new Knight(PieceColor.White));
         board.getSpot(1,2).setPiece(new Pawn(PieceColor.Black));
         board.getSpot(2,1).setPiece(new Pawn(PieceColor.Black));
-        board.printBoard();
         List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(1,2), board.getSpot(2,1)));
         Spot checkedSpot = board.getSpot(0,0);
         List<Spot> takenPositions = checkedSpot.getPiece().getPossibleMoves(board, checkedSpot);
