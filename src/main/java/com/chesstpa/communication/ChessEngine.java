@@ -19,7 +19,6 @@ public class ChessEngine implements CommunicationInterface{
             return "";
         }
         game.setGameState(boardState,whiteCastle,blackCastle);
-        game.getBoard().printBoard();
         Position transformPosition = DataConvert.transformPositionToIntList(piecePosition);
         int x = transformPosition.getX();
         int y = transformPosition.getY();
@@ -35,16 +34,16 @@ public class ChessEngine implements CommunicationInterface{
     }
 
     @Override
-    public GameStatus getGameStatus(String boardState, String whiteCastle, String blackCastle,String color) {
+    public String getGameStatus(String boardState, String whiteCastle, String blackCastle,String color) {
         game.setGameState(boardState, whiteCastle, blackCastle);
         PieceColor pieceColor = Objects.equals(color, "w") ?PieceColor.White:PieceColor.Black;
         if (game.isCheckMate(pieceColor)){
-            return GameStatus.CHECKMATE;
+            return GameStatus.CHECKMATE.getValue();
         }
         if (game.isPat(pieceColor)){
-            return GameStatus.PAT;
+            return GameStatus.PAT.getValue();
         }
-        return GameStatus.GAME;
+        return GameStatus.GAME.getValue();
     }
 
 }
