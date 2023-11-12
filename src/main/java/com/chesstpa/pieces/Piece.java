@@ -20,18 +20,9 @@ public abstract class Piece {
 
     public abstract List<Spot> getPossibleMoves(Board board, Spot spot);
 
-    protected List<Spot> filterPositionByKingCheck(Board board,List<Spot> possibleMoves){
-        if (board.kingIsCheck(color)) {
-            possibleMoves.removeIf(move -> move.safeKing(board, color,this));
-        }
+    protected List<Spot> filterPositionByKingCheck(Board board,List<Spot> possibleMoves,Spot spot){
+            possibleMoves.removeIf(move -> move.kingIsNotSafe(board,spot, color,this));
         return possibleMoves;
     }
-    private List<Spot> filterByReveal(Board board,List<Spot> possibleMoves, Spot spot){
-        possibleMoves.removeIf(move -> move.revealsKing(board, color,this, spot));
-        return possibleMoves;
-    }
-    protected List<Spot> filterMoves(Board board,List<Spot> possibleMoves, Spot spot){
-        List<Spot> moves = filterPositionByKingCheck(board, possibleMoves);
-        return filterByReveal(board, moves, spot);
-    }
+
 }

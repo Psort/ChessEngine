@@ -23,6 +23,6 @@ public class Queen extends Piece {
         List<Spot> diagonalMoves = bishopMoves.getPossibleMoves(board,spot);
         List<Spot> possibleMoves = Stream.concat(rookPossibleMoves.stream(), diagonalMoves.stream())
                 .collect(Collectors.toList());
-        return filterMoves(board,possibleMoves, spot);
+        return filterPositionByKingCheck(board,possibleMoves, spot);
     }
 }

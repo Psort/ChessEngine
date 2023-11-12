@@ -18,6 +18,6 @@ public class Rook extends Piece  {
     @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot){
         List<Spot> possibleMoves = rookMoves.getPossibleMoves(board,spot);
-        return filterMoves(board,possibleMoves, spot);
+        return filterPositionByKingCheck(board,possibleMoves, spot);
     }
 }

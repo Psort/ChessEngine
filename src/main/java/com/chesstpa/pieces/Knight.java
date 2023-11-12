@@ -16,6 +16,6 @@ public class Knight extends Piece{
     @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = knightMoves.getPossibleMoves(board, spot);
-        return filterMoves(board,possibleMoves, spot);
+        return filterPositionByKingCheck(board,possibleMoves, spot);
     }
 }

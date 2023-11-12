@@ -15,6 +15,6 @@ public class Bishop extends Piece{
     @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = bishopMoves.getPossibleMoves(board,spot);
-        return filterMoves(board,possibleMoves, spot);
+        return filterPositionByKingCheck(board,possibleMoves, spot);
     }
 }
