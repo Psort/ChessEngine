@@ -17,6 +17,13 @@ public class ChessEngineTest {
         engine = new ChessEngine();
     }
     @Test
+    void Test() {
+        String expected = engine.getPossibleMovesForPosition("rnb1kb1r/pp4pp/5n2/2p1Pp2/5P2/3P1KP1/PP5P/R1BQ1BNR","g8","", "");
+        Game game = new Game();
+        game.setGameState("rnb1kb1r/pp4pp/5n2/2p1Pp2/5P2/3P1KP1/PP5P/R1BQ1BNR","","");
+        game.getBoard().printBoard();
+    }
+    @Test
     void shouldReturnLegalRookMoves() {
         String expected = engine.getPossibleMovesForPosition("k6q/8/8/8/8/8/7R/7K","h7","", "");
         String result = "h6/h5/h4/h3/h2/h1";
