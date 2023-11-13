@@ -35,8 +35,8 @@ public class Game {
                 .toList();
     }
 
-    public void setGameState(String boardState, String whiteCastle, String blackCastle) {
-        board.setBoardState(boardState,whiteCastle,blackCastle);
+    public void setGameState(String boardState,String castle) {
+        board.setBoardState(boardState,castle);
     }
 
     public Board getBoard() {

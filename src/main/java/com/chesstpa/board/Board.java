@@ -52,7 +52,7 @@ public class Board {
     public boolean kingIsCheck(PieceColor color){
         return getKingSpot(color).isBeaten(this, color);
     }
-    public void setBoardState(String boardState, String whiteCastle, String blackCastle) {
+    public void setBoardState(String boardState,String castle) {
         initializeEmptyBoard();
         String[] strings = boardState.split("/");
         for (int i = 0; i < SIZE; i++) {
@@ -66,8 +66,8 @@ public class Board {
                     if (piece instanceof King) {
                         King king = (King) piece;
                         boolean isWhite = piece.getColor() == PieceColor.White;
-                        king.setShortCastle(isWhite ? whiteCastle.contains("K") : blackCastle.contains("k"));
-                        king.setLongCastle(isWhite ? whiteCastle.contains("Q") : blackCastle.contains("q"));
+                        king.setShortCastle(isWhite ? castle.contains("K") : castle.contains("k"));
+                        king.setLongCastle(isWhite ? castle.contains("Q") : castle.contains("q"));
                         setKingSpot(spots[i][j - 1]);
                     }
                 }
