@@ -14,11 +14,11 @@ public class ChessEngine implements CommunicationInterface{
 
     private final Game game = new Game();
     @Override
-    public String getPossibleMovesForPosition(String boardState, String piecePosition,String whiteCastle,String blackCastle) {
+    public String getPossibleMovesForPosition(String boardState, String piecePosition,String castle) {
         if (piecePosition.length() != 2){
             return "";
         }
-        game.setGameState(boardState,whiteCastle,blackCastle);
+        game.setGameState(boardState,castle);
         Position transformPosition = DataConvert.transformPositionToIntList(piecePosition);
         int x = transformPosition.getX();
         int y = transformPosition.getY();
