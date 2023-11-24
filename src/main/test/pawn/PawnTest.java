@@ -58,6 +58,24 @@ public class PawnTest {
         List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
         assertEquals(correctPositions, takenPositions);
     }
+    @Test
+    void lastPositionWhiteTest() {
+        board.getSpot(0,7).setPiece(new Pawn(PieceColor.White));
+        List<Spot> correctPositions = new ArrayList<>();
+        Spot chekedSpot =board.getSpot(0,7);
+
+        List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
+        assertEquals(correctPositions, takenPositions);
+    }
+    @Test
+    void lastPositionBlackTest() {
+        board.getSpot(7,7).setPiece(new Pawn(PieceColor.Black));
+        List<Spot> correctPositions = new ArrayList<>();
+        Spot chekedSpot =board.getSpot(7,7);
+
+        List<Spot> takenPositions = chekedSpot.getPiece().getPossibleMoves(board,chekedSpot);
+        assertEquals(correctPositions, takenPositions);
+    }
 
 //    @Test
 //    void enPassantTest() {
