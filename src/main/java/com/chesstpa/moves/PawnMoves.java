@@ -18,25 +18,28 @@ public class PawnMoves {
         int x = spot.getPosition().getX();
         int y = spot.getPosition().getY();
 
-        // Standard pawn move one square forward
-        Spot forwardOne = board.getSpots()[x + direction][y];
-        if (isValidMove(x + direction, y, board) && forwardOne.isEmpty()) {
-            possibleMoves.add(forwardOne);
-        }
-
-        // Pawn move two squares forward from the starting position
-        if (isValidMove(x + direction, y, board) && forwardOne.isEmpty() && x == startSpot) {
-            Spot forwardTwo = board.getSpots()[x + 2 * direction][y];
-            if (isValidMove(x + 2 * direction, y, board) && forwardTwo.isEmpty()) {
-                possibleMoves.add(forwardTwo);
+        if (isValidMove(x + direction, y, board)){
+            // Standard pawn move one square forward
+            Spot forwardOne = board.getSpots()[x + direction][y];
+            if (forwardOne.isEmpty()){
+                possibleMoves.add(forwardOne);
+            }
+            // Pawn move two squares forward from the starting position
+            if (x == startSpot){
+                Spot forwardTwo = board.getSpots()[x + 2 * direction][y];
+                if (isValidMove(x + 2 * direction, y, board) && forwardTwo.isEmpty()) {
+                    possibleMoves.add(forwardTwo);
+                }
             }
         }
+
 
         // Pawn captures
         if (isValidAttack(x + direction, y - 1, board,color)) {
             Spot diagonalLeft = board.getSpots()[x + direction][y - 1];
             possibleMoves.add(diagonalLeft);
         }
+
         if (isValidAttack(x + direction, y + 1, board,color)) {
             Spot diagonalRight = board.getSpots()[x + direction][y + 1];
             possibleMoves.add(diagonalRight);
