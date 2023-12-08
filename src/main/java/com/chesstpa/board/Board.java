@@ -84,7 +84,11 @@ public class Board {
             System.out.print(i++ +" ");
             for (Spot spot: spots1){
                 if (spot.getPiece() !=null){
-                    System.out.print(" "+spot.getPosition().getX()+spot.getPiece().getClass().getSimpleName().charAt(0)+spot.getPosition().getY()+" ");
+                    char pieceSymbol = spot.getPiece().getClass().getSimpleName().charAt(0);
+                    char symbolToPrint = spot.getPiece().getColor() == PieceColor.Black ? Character.toLowerCase(pieceSymbol) : Character.toUpperCase(pieceSymbol);
+
+                    System.out.print(" " + spot.getPosition().getX() + symbolToPrint + spot.getPosition().getY() + " ");
+
                 }
                 else {
                     System.out.print(" "+spot.getPosition().getX()+":"+spot.getPosition().getY()+" ");
