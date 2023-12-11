@@ -17,19 +17,20 @@ public class KingTest {
     @BeforeEach
     public void setUp(){
         board = new Board();
+        board.getSpot(0,4).setPiece(new King(PieceColor.Black));
+        board.getSpot(7,4).setPiece(new King(PieceColor.White));
+        board.setKingSpot(board.getSpot(7,4));
+        board.setKingSpot(board.getSpot(0,4));
     }
     @Test
     void cantMoveTest() {
         board.getSpot(0,3).setPiece(new Queen(PieceColor.Black));
-        board.getSpot(0,4).setPiece(new King(PieceColor.Black));
         board.getSpot(0,5).setPiece(new Bishop(PieceColor.Black));
         board.getSpot(1,3).setPiece(new Pawn(PieceColor.Black));
         board.getSpot(1,4).setPiece(new Pawn(PieceColor.Black));
         board.getSpot(1,5).setPiece(new Pawn(PieceColor.Black));
 
-        board.getSpot(7,4).setPiece(new King(PieceColor.White));
-        board.setKingSpot(board.getSpot(7,4));
-        board.setKingSpot(board.getSpot(0,4));
+
         List<Spot> correctPositions = new ArrayList<>();
         Spot chekedSpot =board.getSpot(0,4);
         King king =  (King) chekedSpot.getPiece();
@@ -41,17 +42,13 @@ public class KingTest {
     @Test
     void cantMoveByAttackTest() {
         board.getSpot(0,3).setPiece(new Queen(PieceColor.Black));
-        board.getSpot(0,4).setPiece(new King(PieceColor.Black));
         board.getSpot(0,5).setPiece(new Bishop(PieceColor.Black));
         board.getSpot(1,3).setPiece(new Pawn(PieceColor.Black));
         board.getSpot(1,4).setPiece(new Pawn(PieceColor.Black));
 
 
-//        board.getSpot(1,5).setPiece(new Queen(PieceColor.White));
         board.getSpot(2,4).setPiece(new Queen(PieceColor.White));
-        board.getSpot(7,4).setPiece(new King(PieceColor.White));
-        board.setKingSpot(board.getSpot(7,4));
-        board.setKingSpot(board.getSpot(0,4));
+
 
 
         List<Spot> correctPositions = new ArrayList<>();
@@ -64,16 +61,13 @@ public class KingTest {
     @Test
     void cantBeatBySpotIsUnderAttackTest() {
         board.getSpot(0,3).setPiece(new Queen(PieceColor.Black));
-        board.getSpot(0,4).setPiece(new King(PieceColor.Black));
         board.getSpot(0,5).setPiece(new Bishop(PieceColor.Black));
         board.getSpot(1,3).setPiece(new Pawn(PieceColor.Black));
         board.getSpot(1,4).setPiece(new Pawn(PieceColor.Black));
 
         board.getSpot(1,5).setPiece(new Queen(PieceColor.White));
         board.getSpot(2,4).setPiece(new Queen(PieceColor.White));
-        board.getSpot(7,4).setPiece(new King(PieceColor.White));
-        board.setKingSpot(board.getSpot(7,4));
-        board.setKingSpot(board.getSpot(0,4));
+
 
         List<Spot> correctPositions = new ArrayList<>();
         Spot chekedSpot =board.getSpot(0,4);
@@ -85,7 +79,6 @@ public class KingTest {
     @Test
     void canCastleKingSideTest() {
         board.getSpot(7,3).setPiece(new Queen(PieceColor.White));
-        board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(7,7).setPiece(new Rook(PieceColor.White));
         board.getSpot(6,3).setPiece(new Pawn(PieceColor.White));
         board.getSpot(6,4).setPiece(new Pawn(PieceColor.White));
@@ -102,7 +95,6 @@ public class KingTest {
     @Test
     void canCastleQueenSideTest() {
         board.getSpot(7,5).setPiece(new Bishop(PieceColor.White));
-        board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(7,0).setPiece(new Rook(PieceColor.White));
         board.getSpot(6,3).setPiece(new Pawn(PieceColor.White));
         board.getSpot(6,4).setPiece(new Pawn(PieceColor.White));
@@ -117,7 +109,6 @@ public class KingTest {
     @Test
     void cantCastleQueenSideTest() {
         board.getSpot(7,5).setPiece(new Bishop(PieceColor.White));
-        board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(7,0).setPiece(new Rook(PieceColor.White));
         board.getSpot(6,3).setPiece(new Pawn(PieceColor.White));
         board.getSpot(6,4).setPiece(new Pawn(PieceColor.White));
@@ -133,7 +124,6 @@ public class KingTest {
     @Test
     void cantCastleKingSideTest() {
         board.getSpot(5,5).setPiece( new Knight(PieceColor.Black));
-        board.getSpot(7,4).setPiece(new King(PieceColor.White));
         board.getSpot(7,3).setPiece(new Queen(PieceColor.White));
         board.getSpot(6,3).setPiece(new Pawn(PieceColor.White));
         board.getSpot(6,4).setPiece(new Pawn(PieceColor.White));
