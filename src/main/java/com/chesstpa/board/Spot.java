@@ -95,25 +95,25 @@ public class Spot {
         return piece == null;
     }
 
-    public boolean kingIsNotSafe(Board board, Spot spot, PieceColor color, Piece piece) {
+    public boolean kingIsNotSafe(Board board, Spot nextSpot, PieceColor color, Piece piece) {
+        boolean itSafe;
         Spot kingSpot = board.getKingSpot(color);
         Piece oldPiece = this.piece;
         this.piece = piece;
-        if(piece instanceof King) {
+        nextSpot.setPiece(null);
+
+        if (piece instanceof King) {
             board.setKingSpot(this);
-            Spot newKingSpot = board.getKingSpot(color);
-            spot.setPiece(null);
-            boolean itSafe = newKingSpot.isBeaten(board, color);
-            spot.setPiece(piece);
-            board.setKingSpot(kingSpot);
-            this.piece = oldPiece;
-            return itSafe;
+            itSafe = this.isBeaten(board, color);
         } else {
-            spot.setPiece(null);
-            boolean itSafe = kingSpot.isBeaten(board, color);
-            spot.setPiece(piece);
-            this.piece = oldPiece;
-            return itSafe;
+            itSafe = kingSpot.isBeaten(board, color);
         }
+
+        nextSpot.setPiece(piece);
+        board.setKingSpot(kingSpot);
+        this.piece = oldPiece;
+
+        return itSafe;
     }
+
 }
