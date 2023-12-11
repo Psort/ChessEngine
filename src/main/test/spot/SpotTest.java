@@ -104,6 +104,14 @@ public class SpotTest {
 
     }
     @Test
+    void isNotBeatenByRook() {
+        board.getSpot(0,0).setPiece(new Rook(PieceColor.White));
+
+        board.getSpot(7,7).setPiece(new Rook(PieceColor.Black));
+        assertFalse(board.getSpots()[0][0].isBeaten(board,PieceColor.White));
+
+    }
+    @Test
     void isBeatenByBishop() {
         board.getSpot(0, 0).setPiece(new Bishop(PieceColor.White));
 
@@ -122,6 +130,17 @@ public class SpotTest {
         board.getSpot(4, 0).setPiece(null);
         board.getSpot(3, 7).setPiece(new Bishop(PieceColor.Black));
         assertTrue(board.getSpots()[7][3].isBeaten(board, PieceColor.White));
+    }
+    @Test
+    void isNotBeatenByBishop() {
+        board.getSpot(0, 0).setPiece(new Bishop(PieceColor.White));
+        board.getSpot(2, 0).setPiece(new Bishop(PieceColor.Black));
+        assertFalse(board.getSpot(0,0).isBeaten(board, PieceColor.White));
+
+        board.getSpot(2, 0).setPiece(null);
+        board.getSpot(0, 2).setPiece(new Bishop(PieceColor.Black));
+        board.printBoard();
+        assertFalse(board.getSpot(0,0).isBeaten(board, PieceColor.White));
     }
     @Test
     void isBeatenByQueen() {
