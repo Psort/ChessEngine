@@ -55,12 +55,17 @@ public class Spot {
                 break;
             }
 
-            if (currentSpot.getPiece() instanceof Rook || currentSpot.getPiece() instanceof Queen){
+            if (Math.abs(rowChange) == Math.abs(colChange)
+                    && (currentSpot.getPiece() instanceof Bishop )){
                 return true;
             }
 
-            return Math.abs(rowChange) == Math.abs(colChange)
-                    && currentSpot.getPiece() instanceof Bishop;
+            if (Math.abs(rowChange) != Math.abs(colChange)
+                    && (currentSpot.getPiece() instanceof Rook )){
+                return true;
+            }
+
+            return currentSpot.getPiece() instanceof Queen ;
         }
         return false;
     }
