@@ -21,7 +21,8 @@ public class King extends Piece {
 
     @Override
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
-        return kingMoves.getPossibleMoves(board,spot);
+        List<Spot> possibleMoves = kingMoves.getPossibleMoves(board,spot);
+        return filterPositionByKingCheck(board,possibleMoves,spot);
     }
 
     public boolean hasShortCastle() {
