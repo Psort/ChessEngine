@@ -36,7 +36,7 @@ public class ChessEngine implements CommunicationInterface{
     @Override
     public String getGameStatus(String boardState,String castle,String color) {
         game.setGameState(boardState,castle);
-        PieceColor pieceColor = Objects.equals(color, "w") ?PieceColor.White:PieceColor.Black;
+        PieceColor pieceColor = Objects.equals(color, "WHITE") ?PieceColor.White:PieceColor.Black;
         if (game.isCheckMate(pieceColor)){
             return GameStatus.CHECKMATE.getValue();
         }
