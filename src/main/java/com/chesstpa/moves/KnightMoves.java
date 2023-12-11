@@ -24,10 +24,8 @@ public class KnightMoves {
             // Check if new positions are within the board boundaries
             if (isValidMove(newX, newY)) {
                 Spot destinationSpot = board.getSpots()[newX][newY];
-                Piece piece = destinationSpot.getPiece();
-
                 // Check if the spot is empty or occupied by an opponent's piece
-                if (destinationSpot.isEmpty() || piece.getColor() != spot.getPiece().getColor()) {
+                if (destinationSpot.isEmpty() || destinationSpot.getPiece().getColor() != spot.getPiece().getColor()) {
                     possibleMoves.add(destinationSpot);
                 }
             }
