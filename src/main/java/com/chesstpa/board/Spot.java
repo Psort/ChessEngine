@@ -99,10 +99,21 @@ public class Spot {
         Spot kingSpot = board.getKingSpot(color);
         Piece oldPiece = this.piece;
         this.piece = piece;
-        spot.setPiece(null);
-        boolean itSafe = kingSpot.isBeaten(board, color);
-        spot.setPiece(piece);
-        this.piece = oldPiece;
-        return itSafe;
+        if(piece instanceof King) {
+            board.setKingSpot(this);
+            Spot newKingSpot = board.getKingSpot(color);
+            spot.setPiece(null);
+            boolean itSafe = newKingSpot.isBeaten(board, color);
+            spot.setPiece(piece);
+            board.setKingSpot(kingSpot);
+            this.piece = oldPiece;
+            return itSafe;
+        } else {
+            spot.setPiece(null);
+            boolean itSafe = kingSpot.isBeaten(board, color);
+            spot.setPiece(piece);
+            this.piece = oldPiece;
+            return itSafe;
+        }
     }
 }
