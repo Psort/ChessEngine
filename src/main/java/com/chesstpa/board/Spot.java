@@ -24,7 +24,7 @@ public class Spot {
     }
 
     public boolean isBeaten(Board board, PieceColor color) {
-        PieceType pawnColor = (color == PieceColor.White) ? PieceType.WHITEPAWN : PieceType.BLACKPAWN;
+        PieceType pawnColor = (color == PieceColor.WHITE) ? PieceType.WHITEPAWN : PieceType.BLACKPAWN;
 
         return isBeaten(color, board, PieceType.KNIGHT) || isBeaten(color, board, PieceType.KING)
                 || isBeaten(color, board, pawnColor) || isBeaten(color, board);
@@ -103,14 +103,14 @@ public class Spot {
         nextSpot.setPiece(null);
 
         if (piece instanceof King) {
-            board.setKingSpot(this);
+            board.setKingSpot(this,color);
             itSafe = this.isBeaten(board, color);
         } else {
             itSafe = kingSpot.isBeaten(board, color);
         }
 
         nextSpot.setPiece(piece);
-        board.setKingSpot(kingSpot);
+        board.setKingSpot(kingSpot,color);
         this.piece = oldPiece;
 
         return itSafe;

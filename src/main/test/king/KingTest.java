@@ -19,8 +19,8 @@ public class KingTest {
         board = new Board();
         board.getSpot(0,4).setPiece(new King(PieceColor.Black));
         board.getSpot(7,4).setPiece(new King(PieceColor.White));
-        board.setKingSpot(board.getSpot(7,4));
-        board.setKingSpot(board.getSpot(0,4));
+        board.setKingSpot(board.getSpot(7,4),board.getSpot(7,4).getPiece().getColor());
+        board.setKingSpot(board.getSpot(0,4),board.getSpot(0,4).getPiece().getColor());
     }
     @Test
     void cantMoveTest() {

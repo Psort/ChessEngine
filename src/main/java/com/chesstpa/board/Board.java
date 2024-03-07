@@ -34,8 +34,8 @@ public class Board {
     }
 
 
-    public void setKingSpot(Spot nextSpot) {
-        if(nextSpot.getPiece().getColor() == PieceColor.White){
+    public void setKingSpot(Spot nextSpot,PieceColor color) {
+        if(color == PieceColor.WHITE){
             whiteKingSpot = nextSpot;
         }else {
             blackKingSpot = nextSpot;
@@ -43,7 +43,7 @@ public class Board {
     }
 
     public Spot getKingSpot(PieceColor color) {
-        if (color == PieceColor.White) {
+        if (color == PieceColor.WHITE) {
             return whiteKingSpot;
         } else {
             return blackKingSpot;
@@ -65,10 +65,10 @@ public class Board {
                     spots[i][j++].setPiece(piece);
                     if (piece instanceof King) {
                         King king = (King) piece;
-                        boolean isWhite = piece.getColor() == PieceColor.White;
+                        boolean isWhite = piece.getColor() == PieceColor.WHITE;
                         king.setShortCastle(isWhite ? castle.contains("K") : castle.contains("k"));
                         king.setLongCastle(isWhite ? castle.contains("Q") : castle.contains("q"));
-                        setKingSpot(spots[i][j - 1]);
+                        setKingSpot(spots[i][j - 1],piece.getColor());
                     }
                 }
             }
@@ -85,7 +85,7 @@ public class Board {
             for (Spot spot: spots1){
                 if (spot.getPiece() !=null){
                     char pieceSymbol = spot.getPiece().getClass().getSimpleName().charAt(0);
-                    char symbolToPrint = spot.getPiece().getColor() == PieceColor.Black ? Character.toLowerCase(pieceSymbol) : Character.toUpperCase(pieceSymbol);
+                    char symbolToPrint = spot.getPiece().getColor() == PieceColor.BLACK ? Character.toLowerCase(pieceSymbol) : Character.toUpperCase(pieceSymbol);
 
                     System.out.print(" " + spot.getPosition().getX() + symbolToPrint + spot.getPosition().getY() + " ");
 

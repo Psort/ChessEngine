@@ -18,10 +18,13 @@ public class ChessEngineTest {
     }
     @Test
     void Test() {
-        String expected = engine.getPossibleMovesForPosition("rnb1kb1r/pp4pp/5n2/2p1Pp2/5P2/3P1KP1/PP5P/R1BQ1BNR","g8","");
+        String board = "r1bqk1nr/ppp2ppp/2nb4/3pp3/2B1P3/5Q2/PPPPNPPP/RNB2RK1";
+        String expected = engine.getPossibleMovesForPosition(board,"e7","");
         Game game = new Game();
-        game.setGameState("rnb1kb1r/pp4pp/5n2/2p1Pp2/5P2/3P1KP1/PP5P/R1BQ1BNR","");
+        game.setGameState(board,"");
         game.getBoard().printBoard();
+        System.out.println(engine.getGameStatus(board, "", "WHITE"));
+        System.out.println(expected);
     }
     @Test
     void shouldReturnLegalRookMoves() {

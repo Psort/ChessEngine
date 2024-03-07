@@ -15,18 +15,18 @@ public class DataConvert {
     }
     public static Piece createPieceFromSymbol(char symbol) {
         return switch (symbol) {
-            case 'r' -> new Rook(PieceColor.Black);
-            case 'n' -> new Knight(PieceColor.Black);
-            case 'b' -> new Bishop(PieceColor.Black);
-            case 'q' -> new Queen(PieceColor.Black);
-            case 'k' -> new King(PieceColor.Black);
-            case 'p' -> new Pawn(PieceColor.Black);
-            case 'R' -> new Rook(PieceColor.White);
-            case 'N' -> new Knight(PieceColor.White);
-            case 'B' -> new Bishop(PieceColor.White);
-            case 'Q' -> new Queen(PieceColor.White);
-            case 'K' -> new King(PieceColor.White);
-            case 'P' -> new Pawn(PieceColor.White);
+            case 'r' -> new Rook(PieceColor.BLACK);
+            case 'n' -> new Knight(PieceColor.BLACK);
+            case 'b' -> new Bishop(PieceColor.BLACK);
+            case 'q' -> new Queen(PieceColor.BLACK);
+            case 'k' -> new King(PieceColor.BLACK);
+            case 'p' -> new Pawn(PieceColor.BLACK);
+            case 'R' -> new Rook(PieceColor.WHITE);
+            case 'N' -> new Knight(PieceColor.WHITE);
+            case 'B' -> new Bishop(PieceColor.WHITE);
+            case 'Q' -> new Queen(PieceColor.WHITE);
+            case 'K' -> new King(PieceColor.WHITE);
+            case 'P' -> new Pawn(PieceColor.WHITE);
             default -> null;
         };
 
