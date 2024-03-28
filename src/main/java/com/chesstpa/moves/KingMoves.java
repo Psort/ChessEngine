@@ -73,9 +73,7 @@ public class KingMoves {
                 board.getSpots()[x][y - 1].isEmpty() &&
                 !board.getSpots()[x][y - 1].isBeaten(board,spot.getPiece().getColor()) &&
                 board.getSpots()[x][y - 2].isEmpty() &&
-                !board.getSpots()[x][y - 2].isBeaten(board,spot.getPiece().getColor()) &&
-                board.getSpots()[x][y - 3].isEmpty() &&
-                !board.getSpots()[x][y - 3].isBeaten(board,spot.getPiece().getColor());
+                !board.getSpots()[x][y - 2].isBeaten(board,spot.getPiece().getColor()) ;
     }
 
 }
