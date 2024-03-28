@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.chesstpa.DataConvert.transformPositionToIntList;
+
 public class Game {
     private final Board board = new Board();
 
@@ -35,8 +37,10 @@ public class Game {
                 .toList();
     }
 
-    public void setGameState(String boardState,String castle) {
+    public void setGameState(String boardState,String enPassantPosition,String castle) {
         board.setBoardState(boardState,castle);
+        board.setCastle(castle); // Todo -----------------------------------------------
+        board.setEnPassantPosition(transformPositionToIntList(enPassantPosition));
     }
 
     public Board getBoard() {

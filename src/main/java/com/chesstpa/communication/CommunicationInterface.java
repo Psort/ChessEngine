@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface CommunicationInterface {
 
-     String getPossibleMovesForPosition(String boardState, String piecePosition,String castle);
-     Map<Position, List<Position>> getAllPossibleMovesForColor(String boardState, String piecesColor, String castle);
-     String getGameStatus(String boardState, String castle,String color);
+     String getPossibleMovesForPosition(String boardState, String piecePosition,String enPassantPosition,String castle);
+     Map<Position, List<Position>> getAllPossibleMovesForColor(String boardState, String piecesColor,String enPassantPosition, String castle);
+     String getGameStatus(String boardState, String castle,String enPassantPosition,String color);
 }

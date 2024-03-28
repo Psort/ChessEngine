@@ -5,10 +5,9 @@ import com.chesstpa.board.Spot;
 import com.chesstpa.moves.RookMoves;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Rook extends Piece  {
+    private final char SIMPLENAME = 'r';
     private final RookMoves rookMoves = new RookMoves();
 
     public Rook(PieceColor color) {
@@ -19,5 +18,9 @@ public class Rook extends Piece  {
     public List<Spot> getPossibleMoves(Board board, Spot spot){
         List<Spot> possibleMoves = rookMoves.getPossibleMoves(board,spot);
         return filterPositionByKingCheck(board,possibleMoves, spot);
+    }
+
+    public char getSimpleName() {
+        return SIMPLENAME;
     }
 }

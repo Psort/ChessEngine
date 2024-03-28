@@ -18,11 +18,11 @@ public class ChessEngine implements CommunicationInterface{
 
     private final Game game = new Game();
     @Override
-    public String getPossibleMovesForPosition(String boardState, String piecePosition,String castle) {
+    public String getPossibleMovesForPosition(String boardState, String piecePosition,String enPassantPosition,String castle) {
         if (piecePosition.length() != 2){
             return "";
         }
-        game.setGameState(boardState,castle);
+        game.setGameState(boardState,enPassantPosition,castle);
         Position transformPosition = DataConvert.transformPositionToIntList(piecePosition);
         int x = transformPosition.getX();
         int y = transformPosition.getY();
@@ -38,9 +38,9 @@ public class ChessEngine implements CommunicationInterface{
     }
 
     @Override
-    public Map<Position, List<Position>> getAllPossibleMovesForColor(String boardState, String piecesColor, String castle) {
+    public Map<Position, List<Position>> getAllPossibleMovesForColor(String boardState, String piecesColor,String enPassantPosition, String castle) {
         PieceColor color = Objects.equals(piecesColor, "WHITE") ?PieceColor.WHITE:PieceColor.BLACK;
-        game.setGameState(boardState,castle);
+        game.setGameState(boardState,enPassantPosition,castle);
         Board board = game.getBoard();
         return Arrays.stream(game.getBoard().getSpots())
                 .flatMap(Arrays::stream)
@@ -54,8 +54,8 @@ public class ChessEngine implements CommunicationInterface{
     }
 
     @Override
-    public String getGameStatus(String boardState,String castle,String color) {
-        game.setGameState(boardState,castle);
+    public String getGameStatus(String boardState,String castle,String enPassantPosition,String color) {
+        game.setGameState(boardState,enPassantPosition,castle);
         PieceColor pieceColor = Objects.equals(color, "WHITE") ?PieceColor.WHITE:PieceColor.BLACK;
         if (game.isCheckMate(pieceColor)){
             return GameStatus.CHECKMATE.getValue();

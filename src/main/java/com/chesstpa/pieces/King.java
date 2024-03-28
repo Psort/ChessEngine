@@ -7,6 +7,7 @@ import com.chesstpa.moves.KingMoves;
 import java.util.List;
 
 public class King extends Piece {
+    private final char SIMPLENAME = 'k';
 
     KingMoves kingMoves = new KingMoves();
 
@@ -23,6 +24,9 @@ public class King extends Piece {
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = kingMoves.getPossibleMoves(board,spot);
         return filterPositionByKingCheck(board,possibleMoves,spot);
+    }
+    public char getSimpleName(){
+        return SIMPLENAME;
     }
 
     public boolean hasShortCastle() {

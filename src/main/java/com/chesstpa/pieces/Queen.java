@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Queen extends Piece {
-
+    private final char SIMPLENAME = 'q';
     private final BishopMoves bishopMoves = new BishopMoves();
     private final RookMoves rookMoves = new RookMoves();
     public Queen(PieceColor color) {
@@ -24,5 +24,9 @@ public class Queen extends Piece {
         List<Spot> possibleMoves = Stream.concat(rookPossibleMoves.stream(), diagonalMoves.stream())
                 .collect(Collectors.toList());
         return filterPositionByKingCheck(board,possibleMoves, spot);
+    }
+
+    public char getSimpleName() {
+        return SIMPLENAME;
     }
 }

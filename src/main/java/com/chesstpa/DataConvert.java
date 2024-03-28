@@ -3,8 +3,13 @@ package com.chesstpa;
 import com.chesstpa.board.Position;
 import com.chesstpa.pieces.*;
 
+import java.util.Objects;
+
 public class DataConvert {
     public static Position transformPositionToIntList(String position) {
+        if (Objects.equals(position, "")){
+            return null;
+        }
         int x = Integer.parseInt(position.substring(1)) - 1;
         int y = position.toUpperCase().charAt(0) - 'A'; // Przyjmując, że pozycje są w formie "A1", "B2", itp.
         return new Position(x,y);

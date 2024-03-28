@@ -4,9 +4,7 @@ import com.chesstpa.DataConvert;
 import com.chesstpa.pieces.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Board {
     public final static int SIZE = 8;
@@ -14,6 +12,7 @@ public class Board {
 
     private Spot whiteKingSpot = null ;
     private Spot blackKingSpot = null;
+    private Position enPassantPosition = null;
     public Board() {
         initializeEmptyBoard();
     }
@@ -74,6 +73,38 @@ public class Board {
             }
         }
     }
+    public  String spotsToBoardState() {
+        StringBuilder boardState = new StringBuilder();
+        for (int i = 0; i < SIZE; i++) {
+            int emptyCount = 0;
+            StringBuilder row = new StringBuilder();
+            for (int j = 0; j < SIZE; j++) {
+                Spot spot = spots[i][j];
+                if (spot.getPiece() == null) {
+                    emptyCount++;
+                } else {
+                    if (emptyCount > 0) {
+                        row.append(emptyCount);
+                        emptyCount = 0;
+                    }
+                    Piece piece = spot.getPiece();
+                    char pieceSymbol = piece.getColor() == PieceColor.WHITE ? Character.toUpperCase(piece.getSimpleName()) : Character.toLowerCase(piece.getSimpleName());
+                    row.append(pieceSymbol);
+                }
+            }
+            if (emptyCount > 0) {
+                row.append(emptyCount);
+            }
+            boardState.append(row);
+            if (i < SIZE - 1) {
+                boardState.append("/");
+            }
+        }
+        return boardState.toString();
+    }
+
+
+
     public void printBoard(){
         for(String a :new ArrayList<String>(List.of("    a  ","  b  ","  c  ","  d  ","  e  ","  f  ","  g  ","  h  "))){
             System.out.print(a);
@@ -96,5 +127,17 @@ public class Board {
             }
             System.out.println();
         }
+    }
+
+    public void setEnPassantPosition(Position enPassantPosition) {
+        this.enPassantPosition = enPassantPosition;
+    }
+
+    public Position getEnPassantPosition() {
+        return enPassantPosition;
+    }
+
+    public void setCastle(String castle) {
+
     }
 }

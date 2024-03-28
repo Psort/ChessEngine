@@ -2,6 +2,7 @@ package com.chesstpa.moves;
 
 
 import com.chesstpa.board.Board;
+import com.chesstpa.board.Position;
 import com.chesstpa.board.Spot;
 import com.chesstpa.pieces.PieceColor;
 
@@ -12,6 +13,7 @@ public class PawnMoves {
 
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         int direction = (spot.getPiece().getColor() == PieceColor.WHITE) ? -1 : 1;
+        Position enPassantPosition = board.getEnPassantPosition();
         PieceColor color = spot.getPiece().getColor();
         List<Spot> possibleMoves = new ArrayList<>();
         int startSpot = color == PieceColor.WHITE ? 6:1;
@@ -43,6 +45,10 @@ public class PawnMoves {
         if (isValidAttack(x + direction, y + 1, board,color)) {
             Spot diagonalRight = board.getSpots()[x + direction][y + 1];
             possibleMoves.add(diagonalRight);
+        }
+        if (enPassantPosition != null && enPassantPosition.getX() == x+direction &&(enPassantPosition.getY()+1 == y|| enPassantPosition.getY()-1 == y)){
+            Spot enPassantSpot = board.getSpot(enPassantPosition.getX(),enPassantPosition.getY());
+            possibleMoves.add(enPassantSpot);
         }
         return possibleMoves;
     }

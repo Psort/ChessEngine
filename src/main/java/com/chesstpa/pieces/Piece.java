@@ -24,5 +24,6 @@ public abstract class Piece {
             possibleMoves.removeIf(move -> move.kingIsNotSafe(board,spot, color,this));
         return possibleMoves;
     }
+    public abstract char getSimpleName();
 
 }

@@ -7,6 +7,7 @@ import com.chesstpa.moves.PawnMoves;
 import java.util.List;
 
 public class Pawn extends Piece {
+    private final char SIMPLENAME = 'p';
     private  final PawnMoves pawnMoves = new PawnMoves();
 
 
@@ -19,5 +20,9 @@ public class Pawn extends Piece {
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
         List<Spot> possibleMoves = pawnMoves.getPossibleMoves(board,spot);
         return filterPositionByKingCheck(board,possibleMoves, spot);
+    }
+
+    public char getSimpleName() {
+        return SIMPLENAME;
     }
 }
