@@ -53,6 +53,7 @@ public class ChessEngine implements CommunicationInterface{
                 ));
     }
 
+
     @Override
     public String getGameStatus(String boardState,String castle,String enPassantPosition,String color) {
         game.setGameState(boardState,enPassantPosition,castle);

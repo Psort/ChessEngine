@@ -61,13 +61,14 @@ public class Board {
                     j += Character.getNumericValue(c);
                 } else {
                     Piece piece = DataConvert.createPieceFromSymbol(c);
-                    spots[i][j++].setPiece(piece);
+
+                    spots[SIZE-i-1][j++].setPiece(piece);
                     if (piece instanceof King) {
                         King king = (King) piece;
                         boolean isWhite = piece.getColor() == PieceColor.WHITE;
                         king.setShortCastle(isWhite ? castle.contains("K") : castle.contains("k"));
                         king.setLongCastle(isWhite ? castle.contains("Q") : castle.contains("q"));
-                        setKingSpot(spots[i][j - 1],piece.getColor());
+                        setKingSpot(spots[SIZE-i-1][j - 1],piece.getColor());
                     }
                 }
             }
@@ -79,7 +80,7 @@ public class Board {
             int emptyCount = 0;
             StringBuilder row = new StringBuilder();
             for (int j = 0; j < SIZE; j++) {
-                Spot spot = spots[i][j];
+                Spot spot = spots[SIZE-i-1][j];
                 if (spot.getPiece() == null) {
                     emptyCount++;
                 } else {

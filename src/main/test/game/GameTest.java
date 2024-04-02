@@ -57,7 +57,6 @@ public class GameTest {
     @Test
     void isScholarsMateTest() {
         game.setGameState("3qkb2/3ppQ/4Q3/8/8/8/8/7K","","");
-        List<Spot> takenPositions = game.getBoard().getSpot(0,4).getPiece().getPossibleMoves(game.getBoard(),game.getBoard().getSpot(0,4));
         assertTrue(game.isCheckMate(PieceColor.BLACK));
     }
 

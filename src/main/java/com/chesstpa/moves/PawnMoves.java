@@ -12,11 +12,11 @@ import java.util.List;
 public class PawnMoves {
 
     public List<Spot> getPossibleMoves(Board board, Spot spot) {
-        int direction = (spot.getPiece().getColor() == PieceColor.WHITE) ? -1 : 1;
+        int direction = (spot.getPiece().getColor() == PieceColor.WHITE) ? 1 : -1;
         Position enPassantPosition = board.getEnPassantPosition();
         PieceColor color = spot.getPiece().getColor();
         List<Spot> possibleMoves = new ArrayList<>();
-        int startSpot = color == PieceColor.WHITE ? 6:1;
+        int startSpot = color == PieceColor.WHITE ? 1:6;
         int x = spot.getPosition().getX();
         int y = spot.getPosition().getY();
 
