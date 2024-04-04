@@ -108,19 +108,4 @@ public class PawnTest {
         assertEquals(correctPositions, takenPositions);
     }
 
-//    @Test
-//    void enPassantTest() {
-//        Board board = new Board();
-//        board.getSpot(3,1).setPiece(new Pawn(PieceColor.White));
-//        board.getSpot(2,1).setPiece(new Pawn(PieceColor.Black));
-//        board.getSpot(1,2).setPiece(new Pawn(PieceColor.Black));
-//
-//        Pawn pawn = (Pawn) board.getSpot(1,2).getPiece();
-//        pawn.move(board, board.getSpot(1,2), board.getSpot(3,2));
-//
-//        List<Spot> correctPositions = new ArrayList<>(List.of(board.getSpot(2,2)));
-//        List<Spot> takenPositions = board.getSpots()[3][1].getPiece().getPossibleMoves(board,board.getSpots()[3][1]);
-//        assertEquals(correctPositions, takenPositions);
-//    }
-
 }
